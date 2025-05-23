@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero" aria-label="Welcome Section">
+    <div class="hero-overlay"></div>
+    <div class="container">
+        <div class="hero-content">
+            <h1>Welcome to Kabale University</h1>
+            <p>Uganda's premier institution for academic excellence and innovation</p>
+            <div class="hero-buttons">
+                <a href="{{ url_for('public.admissions_index') }}" class="btn btn-primary btn-large">
+                    <i class="fas fa-book-open" aria-hidden="true"></i> Apply Now
+                </a>
+                <a href="{{ url_for('public.about') }}" class="btn btn-secondary btn-large">
+                    <i class="fas fa-play-circle" aria-hidden="true"></i> Virtual Tour
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="quick-links-section" aria-label="Quick Links">
+    <div class="container">
+        <article class="quick-link-card" aria-label="Admissions">
+            <i class="fas fa-graduation-cap" aria-hidden="true"></i>
+            <h3>Admissions</h3>
+            <p>Learn about our programs and application process</p>
+            <a href="{{ url_for('public.admissions_index') }}">Learn More <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+        </article>
+        <article class="quick-link-card" aria-label="Academic Calendar">
+            <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+            <h3>Academic Calendar</h3>
+            <p>View important dates and deadlines</p>
+            <a href="#">View Calendar <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+        </article>
+        <article class="quick-link-card" aria-label="Student Portal">
+            <i class="fas fa-university" aria-hidden="true"></i>
+            <h3>Student Portal</h3>
+            <p>Access your student account and resources</p>
+            <a href="{{ url_for('portal.login') }}">Login Now <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+        </article>
+    </div>
+</section>
+
+<section class="news-section" aria-label="News and Events">
+    <div class="container">
+        <h2 class="section-title">Latest News & Events</h2>
+        <div class="news-grid">
+            {% for news_item in news %}
+            <article class="news-card" aria-label="{{ news_item.title }}">
+                <figure class="news-image">
+                    <img src="{{ news_item.image_url }}" alt="{{ news_item.title }}">
+                    <figcaption class="news-date">{{ news_item.date }}</figcaption>
+                </figure>
+                <div class="news-content">
+                    <h3>{{ news_item.title }}</h3>
+                    <p>{{ news_item.excerpt }}</p>
+                    <a href="{{ url_for('news.detail', slug=news_item.slug) }}" class="read-more">
+                        Read More <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        <div class="section-footer">
+            <a href="{{ url_for('public.news_index') }}" class="btn btn-outline">
+                <i class="fas fa-newspaper" aria-hidden="true"></i> View All News
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="stats-section" aria-label="University Stats">
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-card" aria-label="Programs Stat">
+                <h3>50+</h3>
+                <p>Academic Programs</p>
+            </div>
+            <div class="stat-card" aria-label="Students Stat">
+                <h3>5,000+</h3>
+                <p>Students Enrolled</p>
+            </div>
+            <div class="stat-card" aria-label="Lecturers Stat">
+                <h3>200+</h3>
+                <p>Qualified Lecturers</p>
+            </div>
+            <div class="stat-card" aria-label="Employability Stat">
+                <h3>95%</h3>
+                <p>Graduate Employability</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>{{ research.title }}</h1>
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="{{ url_for('public.index') }}">Home</a>
+            <span><i class="fas fa-chevron-right" aria-hidden="true"></i></span>
+            <a href="{{ url_for('public.about') }}" class="current">About Us</a>
+        </nav>    
+    </div>
+</section>
+
+<section class="research-detail">
+    <div class="container">
+        <div class="research-meta">
+            <div class="research-badges">
+                <span class="badge funding">{{ research.funding_type }}</span>
+                <span class="badge status">{{ research.status }}</span>
+                <span class="badge date">{{ research.year }}</span>
+            </div>
+            <div class="research-team">
+                <h3>Research Team</h3>
+                <div class="researchers">
+                    {% for member in research.team %}
+                    <div class="researcher">
+                        <img src="{{ member.photo }}" alt="{{ member.name }}">
+                        <div>
+                            <h4>{{ member.name }}</h4>
+                            <p>{{ member.role }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="research-content">
+            <div class="research-main">
+                <h2>Project Overview</h2>
+                {{ research.overview|safe }}
+                
+                <h2>Methodology</h2>
+                {{ research.methodology|safe }}
+                
+                {% if research.findings %}
+                <h2>Key Findings</h2>
+                {{ research.findings|safe }}
+                {% endif %}
+            </div>
+            
+            <div class="research-sidebar">
+                <div class="sidebar-card">
+                    <h3>Project Details</h3>
+                    <ul class="research-details">
+                        <li><strong>Funding:</strong> {{ research.funding_amount }}</li>
+                        <li><strong>Duration:</strong> {{ research.duration }}</li>
+                        <li><strong>Collaborators:</strong> {{ research.collaborators }}</li>
+                        <li><strong>DOI:</strong> {{ research.doi }}</li>
+                    </ul>
+                </div>
+                
+                <div class="sidebar-card">
+                    <h3>Related Publications</h3>
+                    <ul class="publications">
+                        {% for pub in research.publications %}
+                        <li>
+                            <a href="{{ pub.link }}" target="_blank">{{ pub.title }}</a>
+                            <span>{{ pub.journal }}</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                
+                <a href="{{ research.download_link }}" class="btn btn-primary">
+                    <i class="fas fa-download"></i> Download Full Report
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="related-research">
+    <div class="container">
+        <h2>Related Research Projects</h2>
+        <div class="research-grid">
+            {% for project in related_research %}
+            <div class="research-card">
+                <h3><a href="{{ url_for('research_detail', slug=project.slug) }}">{{ project.title }}</a></h3>
+                <p>{{ project.excerpt }}</p>
+                <div class="research-footer">
+                    <span class="research-tag">{{ project.field }}</span>
+                    <a href="{{ url_for('research_detail', slug=project.slug) }}" class="research-link">
+                        View Project <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

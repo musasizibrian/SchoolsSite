@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page_title | default("How to Apply") }} - {{ super() }}{% endblock %}
+
+{% block content %}
+<section class="page-header" aria-label="Page header">
+    <div class="container">
+        <h1>{{ page_title | default("How to Apply for Admission") }}</h1>
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="{{ url_for('public.index') }}">Home</a>
+            <span><i class="fas fa-chevron-right" aria-hidden="true"></i></span>
+            <a href="{{ url_for('public.admissions_index') }}">Admissions</a>
+            <span><i class="fas fa-chevron-right" aria-hidden="true"></i></span>
+            <span class="current">How to Apply</span>
+        </nav>
+    </div>
+</section>
+
+<section class="apply-content" aria-label="Application Process">
+    <div class="container">
+        <article>
+            <h2>Application Process</h2>
+            <p>Follow these steps to successfully apply to Kabale University:</p>
+            <ol>
+                <li>Review the admission requirements for your chosen program.</li>
+                <li>Gather all necessary documents (transcripts, certificates, identification).</li>
+                <li>Complete the online application form available on our portal.</li>
+                <li>Pay the application fee through the specified methods.</li>
+                <li>Submit your application and all supporting documents before the deadline.</li>
+            </ol>
+            <p>For detailed instructions and a link to the application portal, please visit [Link to Portal or more details].</p>
+            <a href="#" class="btn btn-primary">Start Your Application</a>
+        </article>
+    </div>
+</section>
+{% endblock %}

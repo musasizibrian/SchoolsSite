@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page_title | default("Admission Requirements") }} - {{ super() }}{% endblock %}
+
+{% block content %}
+<section class="page-header" aria-label="Page header">
+    <div class="container">
+        <h1>{{ page_title | default("Admission Requirements") }}</h1>
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="{{ url_for('public.index') }}">Home</a>
+            <span><i class="fas fa-chevron-right" aria-hidden="true"></i></span>
+            <a href="{{ url_for('public.admissions_index') }}">Admissions</a>
+            <span><i class="fas fa-chevron-right" aria-hidden="true"></i></span>
+            <span class="current">Requirements</span>
+        </nav>
+    </div>
+</section>
+
+<section class="requirements-content" aria-label="Detailed Admission Requirements">
+    <div class="container">
+        <article>
+            <h2>General Admission Requirements</h2>
+            <p>Prospective students must meet the following general requirements:</p>
+            <ul>
+                <li>Uganda Certificate of Education (UCE) with at least 5 passes.</li>
+                <li>Uganda Advanced Certificate of Education (UACE) with at least 2 principal passes.</li>
+                <li>Equivalent qualifications for international students (subject to verification by UNEB).</li>
+            </ul>
+
+            <h2>Program-Specific Requirements</h2>
+            <p>In addition to general requirements, some programs may have specific subject prerequisites or higher grade requirements. Please consult the detailed information for each program you are interested in.</p>
+            <p><a href="{{ url_for('public.admissions_programs') }}">View specific program requirements here.</a></p>
+
+            <h2>Required Documents</h2>
+            <p>Typically, you will need to submit certified copies of:</p>
+            <ul>
+                <li>Academic transcripts and certificates.</li>
+                <li>National ID or Passport.</li>
+                <li>Birth certificate.</li>
+                <li>Passport-sized photographs.</li>
+            </ul>
+        </article>
+    </div>
+</section>
+{% endblock %}

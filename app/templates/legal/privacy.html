@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>Privacy Policy</h1>
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="{{ url_for('public.index') }}">Home</a>
+            <span><i class="fas fa-chevron-right" aria-hidden="true"></i></span>
+            <a href="{{ url_for('public.about') }}" class="current">About Us</a>
+        </nav>   
+     </div>
+</section>
+
+<section class="legal-content">
+    <div class="container">
+        <p class="last-updated"><strong>Last Updated:</strong> January 1, 2023</p>
+
+        <article class="policy-content">
+            <section aria-labelledby="introduction">
+                <h2 id="introduction">1. Introduction</h2>
+                <p>Kabale University ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website.</p>
+            </section>
+
+            <section aria-labelledby="info-we-collect">
+                <h2 id="info-we-collect">2. Information We Collect</h2>
+                <p>We may collect information about you in a variety of ways:</p>
+                <ul>
+                    <li><strong>Personal Data:</strong> Name, email address, phone number, etc., that you voluntarily provide.</li>
+                    <li><strong>Derivative Data:</strong> Information our servers automatically collect when you access the site.</li>
+                    <li><strong>Third-Party Data:</strong> Information from third parties, such as social media platforms.</li>
+                </ul>
+            </section>
+
+            <section aria-labelledby="use-of-info">
+                <h2 id="use-of-info">3. Use of Your Information</h2>
+                <p>We use the information we collect to:</p>
+                <ul>
+                    <li>Provide and maintain our services</li>
+                    <li>Notify you about changes to our services</li>
+                    <li>Allow you to participate in interactive features</li>
+                    <li>Provide customer support</li>
+                    <li>Gather analysis for improvement</li>
+                </ul>
+            </section>
+
+            <section aria-labelledby="disclosure">
+                <h2 id="disclosure">4. Disclosure of Your Information</h2>
+                <p>We may share information we have collected about you in certain situations:</p>
+                <ul>
+                    <li>With your consent</li>
+                    <li>For academic purposes</li>
+                    <li>To meet legal requirements</li>
+                    <li>To protect university interests</li>
+                </ul>
+            </section>
+
+            <section aria-labelledby="security">
+                <h2 id="security">5. Security of Your Information</h2>
+                <p>We implement reasonable security measures to protect your information. However, no electronic transmission or storage is completely secure.</p>
+            </section>
+
+            <section aria-labelledby="contact">
+                <h2 id="contact">6. Contact Us</h2>
+                <p>If you have any questions about this Privacy Policy, you may contact us at:</p>
+                <address>
+                    <strong>Kabale University</strong><br>
+                    Data Protection Office<br>
+                    P.O. Box 317, Kabale, Uganda<br>
+                    Email: <a href="mailto:privacy@kab.ac.ug">privacy@kab.ac.ug</a>
+                </address>
+            </section>
+        </article>
+    </div>
+</section>
+{% endblock %}

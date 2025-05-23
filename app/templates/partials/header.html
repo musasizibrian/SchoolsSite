@@ -1,0 +1,109 @@
+<!-- templates/partials/header.html -->
+
+<!-- Top Announcement Bar -->
+<div class="announcement-bar bg-primary text-white py-2">
+    <div class="container d-flex justify-content-between align-items-center flex-wrap">
+        <div class="d-flex align-items-center">
+            <i class="fas fa-bullhorn me-2"></i>
+            <span>Applications for 2024/2025 Academic Year now open!</span>
+        </div>
+        <div class="quick-links">
+            <a href="{{ url_for('public.contact') }}" class="text-white mx-2">
+                <i class="fas fa-phone me-1"></i> Contact
+            </a>
+            <a href="#" class="text-white mx-2">
+                <i class="fas fa-map-marker-alt me-1"></i> Location
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Top Contact Bar -->
+<div class="top-bar bg-light py-1 border-bottom">
+    <div class="container d-flex justify-content-between align-items-center flex-wrap text-muted small">
+        <div class="contact-info">
+            <span><i class="fas fa-envelope me-1"></i> info@kab.ac.ug</span>
+            <span class="ms-3"><i class="fas fa-phone me-1"></i> (+256) 782 860 259</span>
+        </div>
+        <!-- Optionally add social media icons here -->
+    </div>
+</div>
+
+<!-- Main Header and Navigation -->
+<header class="main-header shadow-sm">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <!-- Logo and Site Name -->
+            <a class="navbar-brand d-flex align-items-center" href="{{ url_for('public.index') }}">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Kabale University Logo" height="40" class="me-2">
+                <div class="d-flex flex-column">
+                    <span class="fw-bold">Kabale University</span>
+                    <small class="d-none d-md-block">Excellence in Education</small>
+                </div>
+            </a>
+
+            <!-- Toggle button for small screens -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navbar Menu -->
+            <div class="collapse navbar-collapse" id="mainNavbar">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link {{ 'active' if request.endpoint == 'public.index' }}" href="{{ url_for('public.index') }}">
+                            <i class="fas fa-home me-1"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ 'active' if request.endpoint == 'public.about' }}" href="{{ url_for('public.about') }}">
+                            <i class="fas fa-info-circle me-1"></i> About
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {{ 'active' if 'academics' in request.endpoint }}" href="#" id="academicsDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-graduation-cap me-1"></i> Academics
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ url_for('public.academics_programs') }}">Programs</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('public.academics_faculties') }}">Faculties</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('public.academics_research') }}">Research</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ 'active' if request.endpoint == 'public.admissions_index' }}" href="{{ url_for('public.admissions_index') }}">
+                            <i class="fas fa-user-graduate me-1"></i> Admissions
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ 'active' if request.endpoint == 'public.news_index' }}" href="{{ url_for('public.news_index') }}">
+                            <i class="fas fa-newspaper me-1"></i> News
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- Optional Header Action Buttons -->
+                <div class="header-actions d-flex align-items-center">
+                    <button class="btn btn-sm btn-light me-2" id="searchIcon" aria-label="Search">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button class="btn btn-sm btn-outline-light d-lg-none" id="hamburgerMenu" aria-label="Open Menu">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- Optional Search Overlay -->
+<!--
+<div class="search-overlay" id="searchOverlay">
+    <div class="search-box">
+        <input type="search" placeholder="Search..." class="form-control">
+        <button id="closeSearch" class="btn btn-light">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+</div>
+-->

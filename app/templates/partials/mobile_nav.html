@@ -1,0 +1,84 @@
+<nav class="mobile-nav" id="mobileNavPanel" aria-hidden="true">
+    <!-- Close Button -->
+    <div class="mobile-nav-header">
+        <button class="close-menu" id="closeMenu" aria-label="Close Menu">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    <!-- Search Form -->
+    <div class="mobile-nav-search">
+        <form action="{{ url_for('public.search') }}" method="GET">
+            <input type="search" name="q" placeholder="What can we help you find?" aria-label="Search">
+            <button type="submit" aria-label="Submit Search"><i class="fas fa-search"></i></button>
+        </form>
+    </div>
+
+    <!-- Mobile Menu -->
+    <ul class="mobile-nav-menu">
+        <li><span class="menu-heading">Main Menu</span></li>
+        <li><a href="{{ url_for('public.index') }}" class="{{ 'active' if request.endpoint == 'public.index' }}"><i class="fas fa-home"></i> Home</a></li>
+
+        <!-- About Submenu -->
+        <li class="has-submenu">
+            <button class="submenu-toggle" aria-expanded="false" aria-controls="about-submenu">
+                <i class="fas fa-info-circle"></i> About <i class="fas fa-chevron-down"></i>
+            </button>
+            <ul class="submenu" id="about-submenu">
+                <li><a href="{{ url_for('public.about') }}">Overview</a></li>
+                <li><a href="{{ url_for('public.history') }}">History</a></li>
+                <li><a href="{{ url_for('public.mission') }}">Mission & Vision</a></li>
+                <li><a href="{{ url_for('public.leadership') }}">Leadership</a></li>
+            </ul>
+        </li>
+
+        <!-- Academics Submenu -->
+        <li class="has-submenu">
+            <button class="submenu-toggle" aria-expanded="false" aria-controls="academics-submenu">
+                <i class="fas fa-graduation-cap"></i> Academics <i class="fas fa-chevron-down"></i>
+            </button>
+            <ul class="submenu" id="academics-submenu">
+                <li><a href="#">Programs</a></li>
+                <li><a href="#">Faculties</a></li>
+                <li><a href="{{ url_for('public.research_page') }}">Research</a></li>
+            </ul>
+        </li>
+
+        <!-- Admissions Submenu -->
+        <li class="has-submenu">
+            <button class="submenu-toggle" aria-expanded="false" aria-controls="admissions-submenu">
+                <i class="fas fa-user-graduate"></i> Admissions <i class="fas fa-chevron-down"></i>
+            </button>
+            <ul class="submenu" id="admissions-submenu">
+                <li><a href="{{ url_for('public.admissions_index') }}">Overview</a></li>
+                <li><a href="{{ url_for('public.admissions_apply') }}">How to Apply</a></li>
+                <li><a href="{{ url_for('public.admissions_requirements') }}">Requirements</a></li>
+                <li><a href="{{ url_for('public.admissions_programs') }}">Programs Offered</a></li>
+                <!-- Add other admissions links like fees, scholarships here -->
+            </ul>
+        </li>
+
+        <!-- News -->
+        <li><a href="{{ url_for('public.news_index') }}"><i class="fas fa-newspaper"></i> News</a></li>
+
+        <!-- Contact -->
+        <li><a href="{{ url_for('public.contact') }}" class="{{ 'active' if request.endpoint == 'public.contact' }}">
+            <i class="fas fa-envelope"></i> Contact
+        </a></li>
+    </ul>
+
+    <!-- Social Links -->
+    <div class="mobile-nav-social">
+        {% for social in social_links %}
+        <a href="{{ social.url }}" aria-label="{{ social.name }}" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-{{ social.icon }}"></i>
+        </a>
+        {% endfor %}
+    </div>
+</nav>
+
+<!-- Overlay -->
+<div class="overlay" id="overlay"></div>
+
+<!-- JS File -->
+<script src="{{ url_for('static', filename='js/mobile_nav.js') }}"></script>

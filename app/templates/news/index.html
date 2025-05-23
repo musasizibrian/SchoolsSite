@@ -1,0 +1,228 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>University News</h1>
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <ol>
+                <li><a href="{{ url_for('public.index') }}">Home</a></li>
+                <li><span aria-current="page">News</span></li>
+            </ol>
+        </nav>
+    </div>
+</section>
+
+<section class="news-archive">
+    <div class="container">
+        <div class="news-controls">
+            <div class="news-filter">
+                <h2 class="sr-only">Filter News</h2>
+                <div class="filter-options" role="tablist">
+                    <button class="filter-btn active" 
+                            data-category="all" 
+                            role="tab" 
+                            aria-selected="true"
+                            aria-controls="all-news">
+                        All News
+                    </button>
+                    <button class="filter-btn" 
+                            data-category="announcements" 
+                            role="tab" 
+                            aria-selected="false"
+                            aria-controls="announcements-news">
+                        Announcements
+                    </button>
+                    <button class="filter-btn" 
+                            data-category="events" 
+                            role="tab" 
+                            aria-selected="false"
+                            aria-controls="events-news">
+                        Events
+                    </button>
+                    <button class="filter-btn" 
+                            data-category="research" 
+                            role="tab" 
+                            aria-selected="false"
+                            aria-controls="research-news">
+                        Research
+                    </button>
+                </div>
+            </div>
+            
+            <form class="search-box" method="GET" action="{{ url_for('news.index') }}" role="search">
+                <label for="news-search" class="sr-only">Search News</label>
+                <div class="search-input">
+                    <input id="news-search" 
+                           type="search" 
+                           name="q" 
+                           placeholder="Search news..." 
+                           value="{{ request.args.get('q', '') }}"
+                           aria-label="Search news articles">
+                    <button type="submit" aria-label="Submit search">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div id="loading-indicator" class="loading" style="display: none;">
+            <div class="loading-spinner"></div>
+            <span>Loading news...</span>
+        </div>
+
+        {% if error %}
+            <div class="alert alert-error">
+                <i class="fas fa-exclamation-circle"></i>
+                {{ error }}
+            </div>
+        {% endif %}
+
+        <div class="news-content">
+            {% if news_items %}
+            <div class="news-grid" id="news-results">
+                {% for news_item in news_items %}
+                <article class="news-card" 
+                         data-category="{{ news_item.category }}"
+                         tabindex="0"
+                         aria-labelledby="news-title-{{ loop.index }}">
+                    <div class="news-image">
+                        <img src="{{ news_item.image_url }}" 
+                             alt="{{ news_item.title }}"
+                             loading="lazy">
+                        <span class="news-category">{{ news_item.category }}</span>
+                    </div>
+                    <div class="news-content">
+                        <div class="news-meta">
+                            <span><i class="far fa-calendar-alt"></i> 
+                                <time datetime="{{ news_item.date }}">{{ news_item.date }}</time>
+                            </span>
+                            <span><i class="far fa-user"></i> {{ news_item.author }}</span>
+                        </div>
+                        <h3 id="news-title-{{ loop.index }}">
+                            <a href="{{ url_for('news.detail', slug=news_item.slug) }}">
+                                {{ news_item.title }}
+                            </a>
+                        </h3>
+                        <p>{{ news_item.excerpt }}</p>
+                        <a href="{{ url_for('news.detail', slug=news_item.slug) }}" class="read-more">
+                            Read More <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+            {% else %}
+                <div class="no-results">
+                    <i class="fas fa-newspaper"></i>
+                    <p>No news found matching your criteria.</p>
+                    <a href="{{ url_for('news.index') }}" class="btn btn-outline">
+                        View All News
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+
+        {% if pagination.pages > 1 %}
+        <div class="pagination" aria-label="News pagination">
+            {% if pagination.has_prev %}
+                <a href="{{ url_for('news.index', page=pagination.prev_num, q=request.args.get('q')) }}" 
+                   class="page-nav"
+                   aria-label="Previous page">
+                    <i class="fas fa-chevron-left"></i> Previous
+                </a>
+            {% endif %}
+            
+            <div class="page-numbers">
+                {% for page_num in pagination.iter_pages(left_edge=1, right_edge=1, left_current=2, right_current=2) %}
+                    {% if page_num %}
+                        {% if page_num == pagination.page %}
+                            <span class="page-num current" aria-current="page">{{ page_num }}</span>
+                        {% else %}
+                            <a href="{{ url_for('news.index', page=page_num, q=request.args.get('q')) }}" 
+                               class="page-num"
+                               aria-label="Page {{ page_num }}">
+                                {{ page_num }}
+                            </a>
+                        {% endif %}
+                    {% else %}
+                        <span class="page-ellipsis">…</span>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            
+            {% if pagination.has_next %}
+                <a href="{{ url_for('news.index', page=pagination.next_num, q=request.args.get('q')) }}" 
+                   class="page-nav"
+                   aria-label="Next page">
+                    Next <i class="fas fa-chevron-right"></i>
+                </a>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<section class="newsletter-section">
+    <div class="container">
+        <div class="newsletter-card">
+            <div class="newsletter-content">
+                <h2>Stay Updated</h2>
+                <p>Subscribe to our newsletter to receive the latest news and updates</p>
+            </div>
+            <form class="newsletter-form" id="newsletter-form">
+                <div class="form-group">
+                    <label for="newsletter-email" class="sr-only">Email Address</label>
+                    <input type="email" 
+                           id="newsletter-email" 
+                           placeholder="Your email address" 
+                           required
+                           aria-required="true">
+                    <button type="submit" class="btn btn-primary">
+                        <span class="btn-text">Subscribe</span>
+                        <span class="btn-loading" aria-hidden="true">
+                            <i class="fas fa-spinner fa-spin"></i>
+                        </span>
+                    </button>
+                </div>
+                <p class="form-note">We respect your privacy. Unsubscribe at any time.</p>
+            </form>
+        </div>
+    </div>
+</section>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "itemListElement": [
+    {% for news_item in news_items %}
+    {
+      "@type": "ListItem",
+      "position": {{ loop.index }},
+      "item": {
+        "@type": "NewsArticle",
+        "headline": "{{ news_item.title }}",
+        "datePublished": "{{ news_item.date }}",
+        "author": {
+          "@type": "Person",
+          "name": "{{ news_item.author }}"
+        },
+        "description": "{{ news_item.excerpt }}",
+        "image": "{{ news_item.image_url }}"
+      }
+    }{% if not loop.last %},{% endif %}
+    {% endfor %}
+  ]
+}
+</script>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/news.css') }}">
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/news-filter.js') }}"></script>
+<script src="{{ url_for('static', filename='js/newsletter.js') }}"></script>
+{% endblock %}

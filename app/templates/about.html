@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-header" aria-label="Page header">
+    <div class="container">
+        <h1>About Kabale University</h1>
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="{{ url_for('public.index') }}">Home</a> {/* <--- CORRECTED */}
+            <span><i class="fas fa-chevron-right" aria-hidden="true"></i></span>
+            <a href="{{ url_for('public.about') }}" class="current">About Us</a> {/* <--- CORRECTED */}
+        </nav>
+    </div>
+</section>
+
+<section class="about-section" aria-label="About Kabale University">
+    <div class="container">
+        <article class="about-content">
+            <header>
+                <h2>Our History</h2>
+            </header>
+            <p>Kabale University is a public university located in Kabale, Uganda. Established in 2002, we are committed to providing quality education, research, and community service.</p>
+            <p>Our university offers a wide range of undergraduate and postgraduate programs across various disciplines.</p>
+
+            <h2>Mission & Vision</h2>
+            <div class="mission-grid">
+                <article class="mission-card" aria-label="University Mission">
+                    <i class="fas fa-bullseye" aria-hidden="true"></i>
+                    <h3>Our Mission</h3>
+                    <p>To provide quality education, promote research and innovation, and contribute to community transformation.</p>
+                </article>
+                <article class="mission-card" aria-label="University Vision">
+                    <i class="fas fa-eye" aria-hidden="true"></i>
+                    <h3>Our Vision</h3>
+                    <p>To be a center of excellence in teaching, research, and community engagement.</p>
+                </article>
+            </div>
+
+            <h2>University Leadership</h2>
+            <div class="leadership-grid">
+                {# Assuming 'leadership' is passed from your Python route #}
+                {% for leader in leadership %} 
+                <article class="leader-card" aria-label="{{ leader.name }}">
+                    <figure>
+                        <img src="{{ leader.image_url }}" alt="Portrait of {{ leader.name }}">
+                        <figcaption>
+                            <h3>{{ leader.name }}</h3>
+                            <p>{{ leader.position }}</p>
+                        </figcaption>
+                    </figure>
+                </article>
+                {% endfor %}
+            </div>
+        </article>
+    </div>
+</section>
+
+<section class="values-section" aria-label="University Core Values">
+    <div class="container">
+        <h2 class="section-title">Our Core Values</h2>
+        <div class="values-grid">
+            <article class="value-card" aria-label="Excellence">
+                <i class="fas fa-graduation-cap" aria-hidden="true"></i>
+                <h3>Excellence</h3>
+                <p>We strive for the highest standards in all our endeavors.</p>
+            </article>
+            <article class="value-card" aria-label="Integrity">
+                <i class="fas fa-users" aria-hidden="true"></i>
+                <h3>Integrity</h3>
+                <p>We uphold honesty and ethical behavior in all our actions.</p>
+            </article>
+            <article class="value-card" aria-label="Innovation">
+                <i class="fas fa-handshake" aria-hidden="true"></i>
+                <h3>Innovation</h3>
+                <p>We embrace creativity and continuous improvement.</p>
+            </article>
+        </div>
+    </div>
+</section>
+{% endblock %}

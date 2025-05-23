@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>Admissions</h1>
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="{{ url_for('public.index') }}">Home</a>
+            <span><i class="fas fa-chevron-right" aria-hidden="true"></i></span>
+            <a href="{{ url_for('public.about') }}" class="current">About Us</a>
+        </nav>  
+      </div>
+</section>
+
+<section class="admissions-section">
+    <div class="container">
+        <div class="admissions-tabs">
+            <div class="tab-buttons">
+                <button class="tab-btn active" data-tab="undergraduate">Undergraduate</button>
+                <button class="tab-btn" data-tab="postgraduate">Postgraduate</button>
+                <button class="tab-btn" data-tab="international">International</button>
+                <button class="tab-btn" data-tab="requirements">Requirements</button>
+            </div>
+            
+            <div class="tab-content active" id="undergraduate">
+                <h2>Undergraduate Admissions</h2>
+                <p>Kabale University offers a variety of undergraduate programs across multiple disciplines. Our programs are designed to provide students with both theoretical knowledge and practical skills.</p>
+                
+                <div class="admissions-process">
+                    <h3>Admission Process</h3>
+                    <div class="process-steps">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <h4>Application</h4>
+                            <p>Submit your application online or in person</p>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <h4>Documentation</h4>
+                            <p>Provide required academic documents</p>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <h4>Review</h4>
+                            <p>Admissions committee reviews your application</p>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">4</div>
+                            <h4>Admission</h4>
+                            <p>Receive your admission letter</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <a href="{{ url_for('admissions.apply') }}" class="btn btn-primary">
+                    <i class="fas fa-pencil-alt"></i> Apply Now
+                </a>
+            </div>
+            
+            <!-- Other tab contents  -->
+             <div class="tab-content" id="postgraduate">
+    <h2>Postgraduate Admissions</h2>
+    <p>Details about master's and PhD programs offered at Kabale University...</p>
+    <a href="{{ url_for('admissions.apply') }}" class="btn btn-primary">
+        <i class="fas fa-pencil-alt"></i> Apply Now
+    </a>
+</div>
+
+        </div>
+        
+        <div class="admissions-dates">
+            <h2>Important Dates</h2>
+            <div class="dates-grid">
+                {% for date in important_dates %}
+                <div class="date-card">
+                    <div class="date-badge">
+                        <span class="month">{{ date.month }}</span>
+                        <span class="day">{{ date.day }}</span>
+                    </div>
+                    <div class="date-content">
+                        <h3>{{ date.title }}</h3>
+                        <p>{{ date.description }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="faq-section">
+    <div class="container">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <div class="faq-grid">
+            {% for faq in faqs %}
+            <div class="faq-card">
+                <button class="faq-question">
+                    {{ faq.question }}
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>{{ faq.answer }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/admissions-tabs.js') }}"></script>
+<script src="{{ url_for('static', filename='js/faq-accordion.js') }}"></script>
+{% endblock %}

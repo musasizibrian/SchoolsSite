@@ -1,0 +1,54 @@
+# Code Citations
+
+## License: unknown
+https://github.com/bstanton773/kekambas_flask/tree/64426def5d5ff24b01b8eceff2ae102f6aa774da/app/templates/nav.html
+
+```
+a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}">Logout</
+```
+
+
+## License: unknown
+https://github.com/UIS-IoT-Smart-Campus/framework_gateway/tree/f30ddf51ca68c9820d2065d110450169767e45cd/flaskr/templates/base.html
+
+```
+>Profile</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}"
+```
+
+
+## License: unknown
+https://github.com/Leonards03/programmer-base/tree/10cf67e0c25e26d94ee40ee3e9d2d70d976363b5/app/views/components/navbar.html
+
+```
+</li>
+            <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}">Logout</a></li>
+        </ul>
+    </div>
+    {% else %}
+```
+
+
+## License: unknown
+https://github.com/dyachoksa/beetroot-lessons-03/tree/e2b1c45f4b6aaa9cd58602ccfdbdde6b59c6e37f/Practice/blog_flask/blog/templates/partials/header.html
+
+```
+class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}">Logout</a></li>
+        </ul>
+    <
+```
+
+
+## License: unknown
+https://github.com/Njoro410/myblog/tree/390710bd57ec3bade95103baae228516b371782c/app/templates/base.html
+
+```
+}">Profile</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="{{ url_for('auth.logout') }
+```
+

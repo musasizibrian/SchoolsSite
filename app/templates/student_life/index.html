@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>Student Life</h1>
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="{{ url_for('public.index') }}">Home</a>
+            <span><i class="fas fa-chevron-right" aria-hidden="true"></i></span>
+            <a href="{{ url_for('public.about') }}" class="current">About Us</a>
+        </nav>    
+    </div>
+</section>
+
+<section class="student-life-section">
+    <div class="container">
+        <div class="life-tabs">
+            <div class="tab-buttons" role="tablist" aria-label="Student Life Sections">
+                <button class="tab-btn active" data-tab="housing" role="tab" aria-selected="true" aria-controls="housing">Housing</button>
+                <button class="tab-btn" data-tab="clubs" role="tab" aria-selected="false" aria-controls="clubs">Clubs & Societies</button>
+                <button class="tab-btn" data-tab="sports" role="tab" aria-selected="false" aria-controls="sports">Sports</button>
+                <button class="tab-btn" data-tab="health" role="tab" aria-selected="false" aria-controls="health">Health & Wellness</button>
+            </div>
+
+            <div class="tab-content active" id="housing" role="tabpanel" aria-labelledby="housing">
+                <div class="tab-grid">
+                    <div class="tab-text">
+                        <h2>On-Campus Housing</h2>
+                        <p>Kabale University offers comfortable and secure on-campus housing options for students. Our residence halls provide a supportive environment that fosters academic success and personal growth.</p>
+
+                        <h3>Housing Options</h3>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check-circle"></i> Single and shared rooms available</li>
+                            <li><i class="fas fa-check-circle"></i> 24/7 security and supervision</li>
+                            <li><i class="fas fa-check-circle"></i> High-speed internet access</li>
+                            <li><i class="fas fa-check-circle"></i> Common study areas and lounges</li>
+                            <li><i class="fas fa-check-circle"></i> Laundry facilities on each floor</li>
+                        </ul>
+
+                        <a href="#" class="btn btn-primary">Apply for Housing</a>
+                    </div>
+                    <div class="tab-image">
+                        <img src="{{ url_for('static', filename='images/housing.jpg') }}" alt="Student Housing">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Future tab contents: Clubs, Sports, Health -->
+        </div>
+
+        <div class="student-testimonials">
+            <h2 class="section-title">Student Experiences</h2>
+            <div class="testimonials-slider">
+                {% for testimonial in testimonials %}
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"{{ testimonial.quote }}"</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="{{ testimonial.image or url_for('static', filename='images/default-avatar.png') }}" alt="{{ testimonial.name }}">
+                        <div class="author-info">
+                            <h4>{{ testimonial.name }}</h4>
+                            <p>{{ testimonial.program }}</p>
+                            <div class="rating">
+                                {% for i in range(testimonial.rating) %}
+                                <i class="fas fa-star"></i>
+                                {% endfor %}
+                                {% for i in range(5 - testimonial.rating) %}
+                                <i class="far fa-star"></i>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="campus-map">
+    <div class="container">
+        <h2>Explore Our Campus</h2>
+        <div class="map-container">
+            <img src="{{ url_for('static', filename='images/campus-map.jpg') }}" alt="Campus Map" usemap="#campusmap">
+            <map name="campusmap">
+                <area shape="rect" coords="100,100,200,200" href="#" alt="Library" title="Library">
+                <area shape="rect" coords="210,100,310,200" href="#" alt="Main Hall" title="Main Hall">
+                <area shape="circle" coords="400,150,40" href="#" alt="Health Center" title="Health Center">
+                <!-- Add more areas as needed -->
+            </map>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/student-life.css') }}">
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/student-life-tabs.js') }}"></script>
+<script src="{{ url_for('static', filename='js/testimonials-slider.js') }}"></script>
+{% endblock %}

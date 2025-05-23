@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>Academic Programs</h1>
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="{{ url_for('public.index') }}">Home</a>
+            <span><i class="fas fa-chevron-right" aria-hidden="true"></i></span>
+            <a href="{{ url_for('public.about') }}" class="current">About Us</a>
+        </nav>    </div>
+</section>
+
+<section class="programs-section">
+    <div class="container">
+        <div class="section-header">
+            <h2>Our Degree Programs</h2>
+            <p>Explore our wide range of undergraduate and postgraduate programs across various disciplines</p>
+            <div class="program-filter">
+                <button class="filter-btn active" data-filter="all">All Programs</button>
+                <button class="filter-btn" data-filter="undergraduate">Undergraduate</button>
+                <button class="filter-btn" data-filter="postgraduate">Postgraduate</button>
+                <button class="filter-btn" data-filter="diploma">Diploma</button>
+            </div>
+        </div>
+
+            {% if programs %}
+    <div class="programs-grid">
+        {% for program in programs %}
+        <article class="program-card" data-category="{{ program.category }}">
+            <div class="program-icon">
+                <i class="{{ program.icon }}" aria-label="{{ program.name }} icon"></i>
+            </div>
+            <h3>{{ program.name }}</h3>
+            <p class="program-meta">{{ program.level }} &bull; {{ program.duration }} &bull; {{ program.mode }}</p>
+            <p>{{ program.description }}</p>
+            <div class="program-footer">
+                <a href="{{ url_for('academics.program_detail', slug=program.slug) }}" class="btn btn-outline">
+                    View Details
+                </a>
+                <span class="program-code">{{ program.code }}</span>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="no-programs-message">No programs available at the moment. Please check back later.</p>
+    {% endif %}
+
+
+        <div class="pagination">
+            {% if pagination.has_prev %}
+                <a href="{{ url_for('academics.programs', page=pagination.prev_num) }}" class="page-nav">
+                    <i class="fas fa-chevron-left"></i> Previous
+                </a>
+            {% endif %}
+            
+            {% for page_num in pagination.iter_pages() %}
+                {% if page_num %}
+                    <a href="{{ url_for('academics.programs', page=page_num) }}" 
+                       class="page-num {% if page_num == pagination.page %}active{% endif %}">
+                        {{ page_num }}
+                    </a>
+                {% else %}
+                    <span class="page-dots">...</span>
+                {% endif %}
+            {% endfor %}
+            
+            {% if pagination.has_next %}
+                <a href="{{ url_for('academics.programs', page=pagination.next_num) }}" class="page-nav">
+                    Next <i class="fas fa-chevron-right"></i>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-content">
+            <h2>Need Help Choosing a Program?</h2>
+            <p>Our admissions team is ready to guide you through the selection process</p>
+            <a href="{{ url_for('contact') }}" class="btn btn-primary btn-large">
+                <i class="fas fa-envelope"></i> Contact Admissions
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/program-filter.js') }}"></script>
+{% endblock %}

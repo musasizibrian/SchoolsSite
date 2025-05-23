@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>Contact Us</h1>
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="{{ url_for('public.index') }}">Home</a>
+            <span><i class="fas fa-chevron-right" aria-hidden="true"></i></span>
+            <a href="{{ url_for('public.about') }}" class="current">About Us</a>
+        </nav>    </div>
+</section>
+
+<section class="contact-section">
+    <div class="container">
+        <div class="contact-grid">
+            <div class="contact-form-container">
+                <h2>Send Us a Message</h2>
+                <form class="contact-form" method="POST" action="{{ url_for('contact') }}">
+                    {{ form.hidden_tag() }}
+                    
+                    <div class="form-group">
+                        {{ form.name.label }}
+                        {{ form.name(class="form-control", placeholder="Your Name") }}
+                    </div>
+                    
+                    <div class="form-group">
+                        {{ form.email.label }}
+                        {{ form.email(class="form-control", placeholder="Your Email") }}
+                    </div>
+                    
+                    <div class="form-group">
+                        {{ form.subject.label }}
+                        {{ form.subject(class="form-control", placeholder="Subject") }}
+                    </div>
+                    
+                    <div class="form-group">
+                        {{ form.message.label }}
+                        {{ form.message(class="form-control", rows=5, placeholder="Your Message") }}
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i> Send Message
+                    </button>
+                </form>
+            </div>
+            
+            <div class="contact-info-container">
+                <h2>Contact Information</h2>
+                <div class="contact-info">
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h3>Address</h3>
+                            <p>Kabale University<br>P.O. Box 317, Kabale<br>Uganda</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h3>Phone</h3>
+                            <p>+256 392 176 364<br>+256 414 123 456</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h3>Email</h3>
+                            <p>info@kab.ac.ug<br>admissions@kab.ac.ug</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h3>Working Hours</h3>
+                            <p>Monday - Friday: 8:00 AM - 5:00 PM<br>Saturday: 9:00 AM - 1:00 PM</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="social-media">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.647755955093!2d30.01291531526391!3d-1.2923612999999962!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19dca5b8e5e5e5e5%3A0x5e5e5e5e5e5e5e5!2sKabale%20University!5e0!3m2!1sen!2sug!4v1620000000000!5m2!1sen!2sug" 
+                    width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </div>
+</section>
+
+<section class="departments-contact">
+    <div class="container">
+        <h2 class="section-title">Contact Specific Departments</h2>
+        <div class="departments-grid">
+            {% for department in departments %}
+            <div class="department-card">
+                <h3>{{ department.name }}</h3>
+                <p><i class="fas fa-phone"></i> {{ department.phone }}</p>
+                <p><i class="fas fa-envelope"></i> {{ department.email }}</p>
+                <p><i class="fas fa-map-marker-alt"></i> {{ department.location }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

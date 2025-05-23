@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>News Detail</h1>
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="{{ url_for('public.index') }}">Home</a>
+            <span><i class="fas fa-chevron-right" aria-hidden="true"></i></span>
+            <a href="{{ url_for('public.about') }}" class="current">About Us</a>
+        </nav>    </div>
+</section>
+
+<article class="news-detail">
+    <div class="container">
+        <!-- Article Header -->
+        <header class="news-header">
+            <span class="news-category">{{ article.category }}</span>
+            <h1>{{ article.title }}</h1>
+            <div class="news-meta">
+                <span><i class="far fa-calendar-alt"></i> {{ article.date }}</span>
+                <span><i class="far fa-user"></i> By {{ article.author }}</span>
+                <span><i class="far fa-eye"></i> {{ article.views }} Views</span>
+            </div>
+        </header>
+
+        <!-- Article Image -->
+        {% if article.image_url %}
+        <figure class="news-image">
+            <img src="{{ article.image_url }}" alt="{{ article.title }}">
+            {% if article.image_caption %}
+            <figcaption class="image-caption">{{ article.image_caption }}</figcaption>
+            {% endif %}
+        </figure>
+        {% endif %}
+
+        <!-- Article Content -->
+        <div class="news-content">
+            {{ article.content|safe }}
+        </div>
+
+        <!-- Tags -->
+        {% if article.tags %}
+        <div class="news-tags">
+            {% for tag in article.tags %}
+            <a href="{{ url_for('news.tag', tag=tag) }}" class="tag">{{ tag }}</a>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- Social Share -->
+        <section class="news-share">
+            <h3>Share This Story</h3>
+            <div class="share-buttons">
+                <a href="#" class="share-btn facebook" aria-label="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="share-btn twitter" aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="share-btn linkedin" aria-label="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="share-btn whatsapp" aria-label="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </section>
+
+        <!-- Related News -->
+        {% if related_articles %}
+        <section class="news-related">
+            <h2>Related News</h2>
+            <div class="related-grid">
+                {% for related in related_articles %}
+                <article class="related-card">
+                    <a href="{{ url_for('news.detail', slug=related.slug) }}">
+                        <img src="{{ related.image_url }}" alt="{{ related.title }}">
+                        <h3>{{ related.title }}</h3>
+                    </a>
+                </article>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+    </div>
+</article>
+{% endblock %}
