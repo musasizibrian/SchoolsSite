@@ -61,24 +61,34 @@
                         </a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle {{ 'active' if 'academics' in request.endpoint }}" href="#" id="academicsDropdown" role="button" data-bs-toggle="dropdown">
+                        <a class="nav-link dropdown-toggle {{ 'active' if 'academics' in request.endpoint or request.endpoint.startswith('public.academics_') }}" href="#" id="academicsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fas fa-graduation-cap me-1"></i> Academics
                         </a>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu" aria-labelledby="academicsDropdown">
                             <li><a class="dropdown-item" href="{{ url_for('public.academics_programs') }}">Programs</a></li>
                             <li><a class="dropdown-item" href="{{ url_for('public.academics_faculties') }}">Faculties</a></li>
                             <li><a class="dropdown-item" href="{{ url_for('public.academics_research') }}">Research</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ 'active' if request.endpoint == 'public.admissions_index' }}" href="{{ url_for('public.admissions_index') }}">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {{ 'active' if 'admissions' in request.endpoint or request.endpoint.startswith('public.admissions_') }}" href="#" id="admissionsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fas fa-user-graduate me-1"></i> Admissions
                         </a>
+                        <ul class="dropdown-menu" aria-labelledby="admissionsDropdown">
+                            <li><a class="dropdown-item" href="{{ url_for('public.admissions_index') }}">Admissions Overview</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('public.admissions_apply') }}">How to Apply</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('public.admissions_requirements') }}">Requirements</a></li>
+                            <!-- <li><a class="dropdown-item" href="{{ url_for('public.admissions_programs') }}">Programs Offered</a></li> -->
+                        </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ 'active' if request.endpoint == 'public.news_index' }}" href="{{ url_for('public.news_index') }}">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {{ 'active' if 'news' in request.endpoint or request.endpoint.startswith('public.news_') }}" href="#" id="newsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fas fa-newspaper me-1"></i> News
                         </a>
+                        <ul class="dropdown-menu" aria-labelledby="newsDropdown">
+                            <li><a class="dropdown-item" href="{{ url_for('public.news_index') }}">Latest News</a></li>
+                            <!-- Add more news links here if needed -->
+                        </ul>
                     </li>
                 </ul>
 
@@ -107,3 +117,84 @@
     </div>
 </div>
 -->
+
+
+
+
+
+<!-- templates/partials/header.html -->
+
+<!-- Top Contact Bar -->
+<div class="top-contact-bar py-2 text-white bg-warning">
+  <div class="container d-flex justify-content-between align-items-center flex-wrap">
+    <div class="contact-info">
+      <a href="mailto:info@kab.ac.ug" class="text-dark me-3 text-decoration-none small">
+        <i class="fas fa-envelope me-1"></i> info@kab.ac.ug
+      </a>
+      <a href="tel:+256782860259" class="text-dark text-decoration-none small">
+        <i class="fas fa-phone me-1"></i> (+256) 782 860 259
+      </a>
+    </div>
+    <div class="top-utility-links d-none d-lg-flex align-items-center">
+      <a href="#" class="text-dark fw-semibold small mx-2 text-decoration-none">Quick Links</a>
+      <span class="text-dark small">|</span>
+      <a href="#" class="text-dark fw-semibold small mx-2 text-decoration-none">eLearning</a>
+      <span class="text-dark small">|</span>
+      <a href="#" class="text-dark fw-semibold small ms-2 text-decoration-none">Timetables</a>
+    </div>
+  </div>
+</div>
+
+<!-- Main Header and Navigation -->
+<header class="main-header sticky-top shadow-sm bg-primary">
+  <nav class="navbar navbar-expand-lg navbar-dark py-2">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="{{ url_for('public.index') }}">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="me-2" style="height: 50px;">
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="mainNavbar">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link {{ 'active' if request.endpoint == 'public.index' }}" href="{{ url_for('public.index') }}">Home</a></li>
+          <li class="nav-item"><a class="nav-link {{ 'active' if request.endpoint == 'public.about' }}" href="{{ url_for('public.about') }}">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Students</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="academicsDropdown" role="button" data-bs-toggle="dropdown">
+              Academic Units
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{{ url_for('public.academics_faculties') }}">Faculties</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('public.academics_departments') }}">Departments</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="{{ url_for('public.academics_programs') }}">All Programs</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('public.academics_programs') }}">Programmes</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('public.academics_research') }}">Research</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Community Outreach</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('public.contact') }}">Contact</a></li>
+        </ul>
+
+        <button class="btn btn-outline-light btn-sm d-none d-lg-block" id="desktopSearchIcon">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<!-- Search Overlay -->
+<div class="search-overlay d-none" id="searchOverlay">
+  <div class="overlay-content">
+    <div class="d-flex justify-content-end">
+      <button class="btn-close" id="closeSearchOverlay"></button>
+    </div>
+    <input type="search" class="form-control mt-2" placeholder="Search Kabale University...">
+    <button class="btn btn-primary mt-2 w-100">Search</button>
+  </div>
+</div>

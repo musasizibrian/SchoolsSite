@@ -50,7 +50,9 @@
                 </div>
             </div>
             
-            <form class="search-box" method="GET" action="{{ url_for('news.index') }}" role="search">
+                        <!-- ...existing code... -->
+            <form class="search-box" method="GET" action="{{ url_for('public.news_index') }}" role="search">
+            <!-- ...existing code... -->
                 <label for="news-search" class="sr-only">Search News</label>
                 <div class="search-input">
                     <input id="news-search" 
@@ -116,7 +118,7 @@
                 <div class="no-results">
                     <i class="fas fa-newspaper"></i>
                     <p>No news found matching your criteria.</p>
-                    <a href="{{ url_for('news.index') }}" class="btn btn-outline">
+                    <a href="                    {{ url_for('public.news_index') }}" class="btn btn-outline">
                         View All News
                     </a>
                 </div>

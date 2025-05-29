@@ -50,14 +50,14 @@
 
         <div class="pagination">
             {% if pagination.has_prev %}
-                <a href="{{ url_for('academics.programs', page=pagination.prev_num) }}" class="page-nav">
+                                <a href="{{ url_for('public.academics_programs', page=pagination.prev_num) }}" class="page-nav">
                     <i class="fas fa-chevron-left"></i> Previous
                 </a>
             {% endif %}
             
             {% for page_num in pagination.iter_pages() %}
                 {% if page_num %}
-                    <a href="{{ url_for('academics.programs', page=page_num) }}" 
+                    <a href="{{ url_for('public.academics_programs', page=page_num) }}" 
                        class="page-num {% if page_num == pagination.page %}active{% endif %}">
                         {{ page_num }}
                     </a>
@@ -67,7 +67,7 @@
             {% endfor %}
             
             {% if pagination.has_next %}
-                <a href="{{ url_for('academics.programs', page=pagination.next_num) }}" class="page-nav">
+                     <a href="{{ url_for('public.academics_programs', page=pagination.next_num) }}" class="page-nav">
                     Next <i class="fas fa-chevron-right"></i>
                 </a>
             {% endif %}
@@ -80,7 +80,7 @@
         <div class="cta-content">
             <h2>Need Help Choosing a Program?</h2>
             <p>Our admissions team is ready to guide you through the selection process</p>
-            <a href="{{ url_for('contact') }}" class="btn btn-primary btn-large">
+                        <a href="{{ url_for('public.contact') }}" class="btn btn-primary btn-large">
                 <i class="fas fa-envelope"></i> Contact Admissions
             </a>
         </div>

@@ -39,7 +39,18 @@ def testimonials():
 @public_bp.route('/academics/') # Main academics/programs page
 @public_bp.route('/academics/programs')
 def academics_programs():
-    return render_template('academics/programs.html')
+    # Provide only the required pagination object for template compatibility
+    class DummyPagination:
+        pages = 1
+        page = 1
+        has_prev = False
+        has_next = False
+        prev_num = 1
+        next_num = 1
+        def iter_pages(self, left_edge=1, right_edge=1, left_current=2, right_current=2):
+            return [1]
+    pagination = DummyPagination()
+    return render_template('academics/programs.html', pagination=pagination)
 
 @public_bp.route('/academics/faculties')
 def academics_faculties():
@@ -49,11 +60,27 @@ def academics_faculties():
 def academics_departments():
     return render_template('academics/departments.html')
 
-@public_bp.route('/academics/research') # Specific research page under academics
+@public_bp.route('/academics/research')
 def academics_research():
-    return render_template('academics/research.html')
-
-
+    # Provide empty/dummy context to avoid template errors
+    research = {
+        "title": "Research Project Title",
+        "funding_type": "",
+        "status": "",
+        "year": "",
+        "team": [],
+        "overview": "",
+        "methodology": "",
+        "findings": "",
+        "funding_amount": "",
+        "duration": "",
+        "collaborators": "",
+        "doi": "",
+        "publications": [],
+        "download_link": "#"
+    }
+    related_research = []
+    return render_template('academics/research.html', research=research, related_research=related_research)
 # --- Admissions Section ---
 
 @public_bp.route('/admissions/')
@@ -81,15 +108,36 @@ def admissions_programs():
 
 # --- News Section ---
 @public_bp.route('/news/') # Main news listing page
-def news_index(): # Changed function name
-    return render_template('news/index.html')
+def news_index():
+    # Dummy data for demonstration; replace with real query logic as needed
+    news_items = []  # List of news items, e.g., from a database
+    error = None
+
+    # Dummy pagination object for template compatibility
+    class DummyPagination:
+        pages = 1
+        page = 1
+        has_prev = False
+        has_next = False
+        prev_num = 1
+        next_num = 1
+        def iter_pages(self, left_edge=1, right_edge=1, left_current=2, right_current=2):
+            return [1]
+
+    pagination = DummyPagination()
+
+    return render_template(
+        'news/index.html',
+        news_items=news_items,
+        pagination=pagination,
+        error=error
+    )
 
 @public_bp.route('/news/<slug>') # Using slug for more SEO friendly URLs
 def news_detail(slug):
     # Here, you would typically fetch the news item from a database using the slug
     # For now, just rendering a template and passing the slug
     return render_template('news/detail.html', news_slug=slug) # Assuming detail template is news/detail.html or news/[slug].html
-
 
 # --- Events Section ---
 @public_bp.route('/events/') # Main events listing page

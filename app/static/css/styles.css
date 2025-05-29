@@ -703,6 +703,127 @@ body, html {
   }
 }
 
+/* Faculties Page Styling */
+
+/* Hero Banner */
+.faculty-hero {
+    background: linear-gradient(to right, #004085, #007bff);
+    color: #fff;
+    padding: 4rem 0;
+    text-align: center;
+    border-radius: 0 0 20px 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.faculty-hero h1 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.faculty-hero p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* Faculties Section */
+.faculty-section {
+    padding: 3rem 1rem;
+    background-color: #f5f8fa;
+}
+
+.faculty-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.faculty-card {
+    background-color: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.faculty-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.faculty-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.faculty-card .card-body {
+    padding: 1.2rem;
+    flex-grow: 1;
+}
+
+.faculty-card h5 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #0056b3;
+}
+
+.faculty-card p {
+    font-size: 0.95rem;
+    color: #6c757d;
+    line-height: 1.5;
+}
+
+.faculty-card a.btn {
+    margin-top: 1rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+    border-radius: 8px;
+}
+
+.faculty-card a.btn:hover {
+    background-color: #0056b3;
+    color: #fff;
+}
+.faculties-section .card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.faculties-section .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+.faculties-section input#facultySearchInput {
+    max-width: 500px;
+    margin: auto;
+}
+.modal-body img {
+    border-radius: 12px;
+}
+
+/* Responsive Utilities */
+@media (max-width: 576px) {
+    .faculty-hero h1 {
+        font-size: 2rem;
+    }
+
+    .faculty-hero p {
+        font-size: 1rem;
+    }
+
+    .faculty-card img {
+        height: 160px;
+    }
+}
+
+
 /* (Continue with the remaining sections as you already have: Academics, Events, News, etc...) */
 /* ========================
    FOOTER STYLES
