@@ -232,7 +232,7 @@ textarea.form-control {
    LAYOUT COMPONENTS
 ======================== */
 /* Header & Navigation */
-.announcement-bar {
+.announcement-bar { /* This is an older definition, the new one below will override it */
     background-color: var(--primary);
     color: var(--white);
     padding: var(--space-xs) 0;
@@ -247,7 +247,7 @@ textarea.form-control {
     gap: var(--space-sm);
 }
 
-.header {
+.header { /* This is an older definition, the new one below might affect it or be separate */
     position: sticky;
     top: 0;
     background-color: var(--white);
@@ -256,7 +256,7 @@ textarea.form-control {
     padding: var(--space-sm) 0;
 }
 
-.navbar {
+.navbar { /* This is an older definition, the new one below will override/extend it */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -307,7 +307,7 @@ textarea.form-control {
     position: relative;
 }
 
-.dropdown-menu {
+.dropdown-menu { /* This is an older definition, the new one below will override it */
     position: absolute;
     top: 100%;
     left: 0;
@@ -478,7 +478,7 @@ textarea.form-control {
    GLOBAL RESET & BASE
 ======================== */
 body, html {
-  font-family: 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Segoe UI', Roboto, sans-serif; /* Note: :root already defines --font-primary, this might be redundant or for a different context */
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -488,7 +488,117 @@ body, html {
    HEADER STYLES
 ======================== */
 
-/* Announcement Bar */
+/* START OF ADDED STYLES */
+/* Header Styles */
+.top-contact-bar {
+    background-color: #FFC107;
+    font-size: 0.875rem;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.announcement-bar { /* This will override the .announcement-bar definition from Layout Components above */
+    background-color: #0d6efd;
+    font-size: 0.9rem;
+}
+
+.main-header { /* This is the new main header style */
+    transition: all 0.3s ease;
+    z-index: 1030;
+}
+
+.navbar-brand {
+    transition: transform 0.3s ease;
+}
+
+.navbar-brand:hover {
+    transform: scale(1.02);
+}
+
+.navbar-nav .nav-link {
+    padding: 0.5rem 1rem;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.navbar-nav .nav-link:not(.dropdown-toggle)::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 1rem;
+    right: 1rem;
+    height: 2px;
+    background-color: white;
+    transform: scaleX(0);
+    transition: transform 0.2s ease;
+}
+
+.navbar-nav .nav-link:hover:not(.dropdown-toggle)::after,
+.navbar-nav .nav-link.active:not(.dropdown-toggle)::after {
+    transform: scaleX(1);
+}
+
+.dropdown-menu { /* This will override the .dropdown-menu definition from Layout Components above */
+    border: none;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
+}
+
+.dropdown-item {
+    padding: 0.5rem 1.5rem;
+    transition: all 0.2s ease;
+}
+
+.dropdown-item:hover {
+    background-color: rgba(13, 110, 253, 0.1);
+}
+
+/* Responsive adjustments for new header styles */
+@media (max-width: 991.98px) {
+    .navbar-collapse {
+        background-color: #0d6efd;
+        padding: 1rem;
+        margin-top: 0.5rem;
+        border-radius: 0.25rem;
+        box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
+    }
+    
+    .navbar-nav {
+        gap: 0.5rem;
+    }
+    
+    .dropdown-menu { /* Specific to new header styles in mobile */
+        margin-left: 1rem;
+        background-color: rgba(255,255,255,0.1);
+    }
+    
+    .dropdown-item { /* Specific to new header styles in mobile */
+        color: rgba(255,255,255,0.8);
+    }
+    
+    .dropdown-item:hover { /* Specific to new header styles in mobile */
+        color: white;
+        background-color: transparent;
+    }
+}
+
+/* Animation for mobile menu for new header styles */
+.navbar-toggler {
+    transition: transform 0.3s ease;
+}
+
+.navbar-toggler[aria-expanded="true"] {
+    transform: rotate(90deg);
+}
+
+/* Sticky header effect for new header styles */
+.sticky-top {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+}
+/* END OF ADDED STYLES */
+
+
+/* Announcement Bar (older definition, likely overridden by styles above or below if selectors match) */
 .announcement-bar {
   background-color: #003366; /* Deep blue */
   color: #fff;
@@ -506,7 +616,7 @@ body, html {
   color: #ffc107;
 }
 
-/* Top Contact Info Bar */
+/* Top Contact Info Bar (older definition) */
 .top-bar {
   background-color: #f8f9fa;
   border-bottom: 1px solid #ddd;
@@ -515,13 +625,13 @@ body, html {
   padding: 0.3rem 0;
 }
 
-/* Main Header */
+/* Main Header (older definition) */
 .main-header {
   background-color: #ffffff;
   border-bottom: 1px solid #e0e0e0;
   padding: 0.75rem 0;
   position: relative;
-  z-index: 100;
+  z-index: 100; /* Note: new .main-header has z-index 1030 */
 }
 
 .logo-link img {
@@ -543,11 +653,11 @@ body, html {
 /* ========================
    NAVBAR STYLES
 ======================== */
-.navbar {
+.navbar { /* This is a general navbar style, new .navbar-nav styles will apply to its children */
   background-color: #003366 !important;
 }
 
-.navbar .nav-link {
+.navbar .nav-link { /* General nav-link, new .navbar-nav .nav-link will be more specific */
   color: #f8f9fa !important;
   font-weight: 500;
   padding: 0.7rem 1rem;
@@ -560,13 +670,13 @@ body, html {
   color: #ffffff !important;
 }
 
-.navbar .dropdown-menu {
+.navbar .dropdown-menu { /* General dropdown-menu, new .dropdown-menu will likely override this */
   background-color: #003366;
   border: none;
   box-shadow: 0 8px 16px rgba(0,0,0,0.1);
 }
 
-.navbar .dropdown-item {
+.navbar .dropdown-item { /* General dropdown-item, new .dropdown-item will likely override this */
   color: #fff;
   font-size: 0.95rem;
   padding: 0.6rem 1rem;
@@ -613,19 +723,19 @@ body, html {
 }
 
 /* ========================
-   RESPONSIVE ADJUSTMENTS
+   RESPONSIVE ADJUSTMENTS (General, older block)
 ======================== */
 @media (max-width: 768px) {
   .logo-link .d-md-flex {
     display: none !important;
   }
-  .announcement-bar, .top-bar {
+  .announcement-bar, .top-bar { /* Note: New styles have their own responsive rules */
     text-align: center;
   }
   .header-actions {
     gap: 0.5rem;
   }
-  .navbar .nav-link {
+  .navbar .nav-link { /* Note: New styles have their own responsive rules for .navbar-nav .nav-link */
     padding: 0.5rem 1rem;
   }
 }
@@ -633,14 +743,14 @@ body, html {
 /* ========================
    PAGE SPECIFIC STYLES
 ======================== */
-/* Header Specific Styles */
+/* Header Specific Styles (another set of header styles) */
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 1030;
+  z-index: 1030; /* Same as new .main-header */
 }
 
-.navbar-brand {
+.navbar-brand { /* Note: New .navbar-brand styles added above */
   font-weight: 700;
 }
 
@@ -649,7 +759,7 @@ body, html {
   opacity: 0.8;
 }
 
-.nav-link {
+.nav-link { /* General .nav-link, new .navbar-nav .nav-link is more specific */
   display: flex;
   align-items: center;
   padding: 0.5rem 1rem;
@@ -660,12 +770,12 @@ body, html {
   text-align: center;
 }
 
-.dropdown-menu {
+.dropdown-menu { /* Note: New .dropdown-menu styles added above */
   border: none;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
 
-.dropdown-item {
+.dropdown-item { /* Note: New .dropdown-item styles added above */
   padding: 0.5rem 1.5rem;
 }
 
@@ -676,7 +786,7 @@ body, html {
   position: relative;
 }
 
-.nav-link.active:after {
+.nav-link.active:after { /* Note: New .navbar-nav .nav-link.active::after is more specific */
   content: '';
   position: absolute;
   bottom: 0;
@@ -686,17 +796,17 @@ body, html {
   background: var(--secondary);
 }
 
-/* Mobile optimizations */
-@media (max-width: 992px) {
-  .navbar-collapse {
+/* Mobile optimizations (another set of responsive rules) */
+@media (max-width: 992px) { /* Note: New styles use 991.98px */
+  .navbar-collapse { /* Note: New styles have their own .navbar-collapse rules */
     padding-top: 1rem;
   }
 
-  .nav-link {
+  .nav-link { /* Note: New styles have their own responsive rules for .navbar-nav .nav-link */
     padding: 0.75rem 0;
   }
 
-  .dropdown-menu {
+  .dropdown-menu { /* Note: New styles have their own responsive rules for .dropdown-menu */
     box-shadow: none;
     border-left: 3px solid var(--secondary);
     margin-left: 1rem;
@@ -976,11 +1086,11 @@ body, html {
     position: fixed;
     top: 0;
     left: 0;
-    width: 85%;
+    width: 85%;              /* Use the 85% width for better screen coverage */
     max-width: 320px;
-    height: 100vh;
+    height: 100vh;           /* Full viewport height */
     background: #fff;
-    z-index: 1000;
+    z-index: 1001;           /* Keep it above overlay */
     transform: translateX(-100%);
     transition: transform 0.3s ease;
     overflow-y: auto;
@@ -988,6 +1098,7 @@ body, html {
     box-shadow: 2px 0 10px rgba(0,0,0,0.1);
 }
 
+.mobile-nav.open,
 .mobile-nav[aria-hidden="false"] {
     transform: translateX(0);
 }
@@ -1002,7 +1113,7 @@ body, html {
     background: none;
     border: none;
     font-size: 1.5rem;
-    color: var(--primary);
+    color: var(--primary, #007bff); /* fallback color */
     cursor: pointer;
 }
 
@@ -1016,6 +1127,7 @@ body, html {
     padding: 0.75rem 1rem;
     border: 1px solid #ddd;
     border-radius: 4px;
+    box-sizing: border-box;
 }
 
 .mobile-nav-search button {
@@ -1025,7 +1137,8 @@ body, html {
     transform: translateY(-50%);
     background: none;
     border: none;
-    color: var(--primary);
+    color: var(--primary, #007bff);
+    cursor: pointer;
 }
 
 .mobile-nav-menu {
@@ -1036,45 +1149,52 @@ body, html {
 
 .mobile-nav-menu li {
     margin-bottom: 0.5rem;
+    border-top: 1px solid #eee; /* subtle separator */
 }
 
-.mobile-nav-menu a, 
-.mobile-nav-menu .menu-heading {
-    display: block;
+.mobile-nav-menu a,
+.mobile-nav-menu .menu-heading,
+.mobile-nav-menu .submenu-toggle {
+    display: flex;
+    align-items: center;
     padding: 0.75rem 0;
-    color: var(--dark);
+    color: var(--dark, #333);
     text-decoration: none;
+    font-weight: 500;
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
 }
 
 .mobile-nav-menu .menu-heading {
     font-weight: 600;
-    color: var(--primary);
+    color: var(--primary, #007bff);
     margin-top: 1.5rem;
 }
 
 .mobile-nav-menu a.active {
-    color: var(--primary);
-    font-weight: 500;
+    color: var(--primary, #007bff);
+    font-weight: 600;
+}
+
+.mobile-nav-menu li a i,
+.mobile-nav-menu .submenu-toggle i {
+    margin-right: 10px;
 }
 
 .submenu-toggle {
-    width: 100%;
-    display: flex;
     justify-content: space-between;
-    align-items: center;
-    background: none;
-    border: none;
-    padding: 0.75rem 0;
-    color: var(--dark);
-    cursor: pointer;
 }
 
 .submenu {
     list-style: none;
-    padding-left: 1rem;
+    padding-left: 1.5rem;
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.3s ease;
+    background-color: #f9f9f9;
 }
 
 .submenu a {
@@ -1084,6 +1204,7 @@ body, html {
 
 .mobile-nav-social {
     display: flex;
+    justify-content: center;
     gap: 1rem;
     margin-top: 2rem;
     padding: 1rem 0;
@@ -1091,7 +1212,7 @@ body, html {
 }
 
 .mobile-nav-social a {
-    color: var(--primary);
+    color: var(--primary, #007bff);
     font-size: 1.2rem;
 }
 
@@ -1101,13 +1222,13 @@ body, html {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.5);
-    z-index: 999;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1000;
     display: none;
 }
 
 /* ========================
-   RESPONSIVE DESIGN
+   RESPONSIVE DESIGN (General, comprehensive block)
 ======================== */
 @media (max-width: 1200px) {
     .hero h1 {
@@ -1115,19 +1236,19 @@ body, html {
     }
 }
 
-@media (max-width: 992px) {
-    .nav-links {
+@media (max-width: 992px) { /* Note: New header styles use 991.98px, this is a general rule */
+    .nav-links { /* This is for the older .nav-links structure */
         display: none;
     }
-    
+
     .mobile-menu-btn {
         display: block;
     }
-    
+
     .grid-3, .grid-4 {
         grid-template-columns: repeat(2, 1fr);
     }
-    
+
     .tab-grid,
     .research-meta,
     .research-content,
@@ -1140,42 +1261,18 @@ body, html {
     .hero h1 {
         font-size: 2rem;
     }
-    
+
     .hero-buttons {
         flex-direction: column;
     }
-    
+
     .programs-grid,
     .news-grid,
     .events-grid {
         grid-template-columns: 1fr;
     }
-}
 
-@media (max-width: 576px) {
-    h1 {
-        font-size: 2rem;
-    }
-    
-    h2 {
-        font-size: 1.75rem;
-    }
-    
-    .section {
-        padding: var(--space-lg) 0;
-    }
-    
-    .grid-2, .grid-3, .grid-4 {
-        grid-template-columns: 1fr;
-    }
-    
-    .footer-grid {
-        grid-template-columns: 1fr;
-        gap: var(--space-md);
-    }
-}
-
-@media (max-width: 768px) {
+    /* Older responsive nav-links, may conflict or complement new navbar-collapse styles */
     .nav-links {
         display: none;
         flex-direction: column;
@@ -1192,28 +1289,52 @@ body, html {
         display: flex;
     }
 
-    .mobile-menu-btn {
+    .mobile-menu-btn { /* Already defined earlier */
         display: block;
     }
-}
 
-@media (max-width: 768px) {
     .footer-grid {
         grid-template-columns: 1fr;
         gap: var(--space-lg);
     }
-    
+
     .footer-col {
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         padding-bottom: var(--space-lg);
     }
-    
+
     .footer-col:last-child {
         border-bottom: none;
     }
 }
 
+@media (max-width: 576px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.75rem;
+    }
+
+    .section {
+        padding: var(--space-lg) 0;
+    }
+
+    .grid-2, .grid-3, .grid-4 {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-grid { /* Already defined for 768px, this is more specific */
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+    }
+}
+
+
 /* ========================
    END OF PAGE SPECIFIC STYLES
+======================== */
 /* ========================
    END OF STYLESHEET
+======================== */
