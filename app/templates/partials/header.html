@@ -1,105 +1,76 @@
-<!-- Top Contact Bar (Always Visible) -->
+<!-- Top Contact Bar -->
 <div class="top-contact-bar py-2 bg-warning">
     <div class="container d-flex justify-content-between align-items-center flex-wrap">
-        <!-- Left: Contact Info -->
-        <div class="d-flex flex-wrap align-items-center mb-2 mb-lg-0">
-            <a href="mailto:info@kab.ac.ug" class="text-dark text-decoration-none small me-3">
-                <i class="fas fa-envelope me-1"></i> info@kab.ac.ug
+        <div class="d-flex flex-wrap align-items-center">
+            <a href="mailto:info@triangle.ac.ug" class="contact-link me-3">
+                <i class="fas fa-envelope me-1"></i> info@triangle.ac.ug
             </a>
-            <a href="tel:+256782860259" class="text-dark text-decoration-none small">
+            <a href="tel:+256782860259" class="contact-link">
                 <i class="fas fa-phone me-1"></i> (+256) 782 860 259
             </a>
         </div>
-
-        <!-- Right: Quick Links -->
         <div class="d-flex align-items-center">
-            <a href="#" class="text-dark fw-semibold small mx-2 text-decoration-none">Quick Links</a>
-            <span class="text-dark small">|</span>
-            <a href="#" class="text-dark fw-semibold small mx-2 text-decoration-none">eLearning</a>
-            <span class="text-dark small">|</span>
-            <a href="#" class="text-dark fw-semibold small ms-2 text-decoration-none">Timetables</a>
+            <a href="#" class="quick-link">Quick Links</a>
+            <span class="divider">|</span>
+            <a href="#" class="quick-link">eLearning</a>
+            <span class="divider">|</span>
+            <a href="#" class="quick-link">Timetables</a>
         </div>
     </div>
 </div>
 
-<!-- Announcement Bar (Optional) -->
-<div class="announcement-bar bg-primary text-white py-2">
-    <div class="container d-flex justify-content-between align-items-center flex-wrap">
-        <div class="d-flex align-items-center">
-            <i class="fas fa-bullhorn me-2"></i>
-            <span>Applications for 2024/2025 Academic Year now open!</span>
-        </div>
-        <div class="quick-links">
-            <a href="{{ url_for('public.contact') }}" class="text-white mx-2">
-                <i class="fas fa-phone me-1"></i> Contact
-            </a>
-            <a href="#" class="text-white mx-2">
-                <i class="fas fa-map-marker-alt me-1"></i> Location
-            </a>
-        </div>
-    </div>
-</div>
-
-<!-- Main Header and Navigation -->
-<header class="main-header sticky-top shadow-sm bg-primary">
-    <nav class="navbar navbar-expand-lg navbar-dark py-2">
+<!-- Main Header -->
+<header class="main-header sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
-            <!-- Logo -->
             <a class="navbar-brand d-flex align-items-center" href="{{ url_for('public.index') }}">
-                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Kabale University Logo" height="50" class="me-2">
-                <div class="d-flex flex-column">
-                    <span class="fw-bold">Kabale University</span>
-                    <small class="d-none d-md-block">Excellence in Education</small>
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Triangle Logo" class="logo">
+                <div class="brand-text d-none d-md-block ms-2">
+                    <div class="fw-bold">Triangle Secondary School</div>
+                    <small>Empowering Future Leaders</small>
                 </div>
             </a>
 
-            <!-- Toggle Button for Small Screens (Right-aligned) -->
-            <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <!-- Navbar Links -->
             <div class="collapse navbar-collapse" id="mainNavbar">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link {{ 'active' if request.endpoint == 'public.index' }}" href="{{ url_for('public.index') }}"><i class="fas fa-home me-1"></i> Home</a></li>
-                    <li class="nav-item"><a class="nav-link {{ 'active' if request.endpoint == 'public.about' }}" href="{{ url_for('public.about') }}"><i class="fas fa-info-circle me-1"></i> About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Students</a></li>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('public.index') }}">Home</a></li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle {{ 'active' if 'academics' in request.endpoint or request.endpoint.startswith('public.academics_') }}" href="#" id="academicsDropdown" role="button" data-bs-toggle="dropdown">
-                            <i class="fas fa-graduation-cap me-1"></i> Academic Units
-                        </a>
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">About</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{{ url_for('public.academics_faculties') }}">Faculties</a></li>
-                            <li><a class="dropdown-item" href="{{ url_for('public.academics_departments') }}">Departments</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{{ url_for('public.academics_programs') }}">All Programs</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="{{ url_for('public.academics_programs') }}">Programmes</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ url_for('public.academics_research') }}">Research</a></li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle {{ 'active' if 'admissions' in request.endpoint or request.endpoint.startswith('public.admissions_') }}" href="#" id="admissionsDropdown" role="button" data-bs-toggle="dropdown">
-                            <i class="fas fa-user-graduate me-1"></i> Admissions
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{{ url_for('public.admissions_index') }}">Admissions Overview</a></li>
-                            <li><a class="dropdown-item" href="{{ url_for('public.admissions_apply') }}">How to Apply</a></li>
-                            <li><a class="dropdown-item" href="{{ url_for('public.admissions_requirements') }}">Requirements</a></li>
+                            <li><a class="dropdown-item" href="#">Overview</a></li>
+                            <li><a class="dropdown-item" href="#">Leadership</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle {{ 'active' if 'news' in request.endpoint or request.endpoint.startswith('public.news_') }}" href="#" id="newsDropdown" role="button" data-bs-toggle="dropdown">
-                            <i class="fas fa-newspaper me-1"></i> News
-                        </a>
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Academics</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{{ url_for('public.news_index') }}">Latest News</a></li>
+                            <li><a class="dropdown-item" href="#">Programs</a></li>
+                            <li><a class="dropdown-item" href="#">Research</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="#">Services</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Community Outreach</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ url_for('public.contact') }}">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Admissions</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">News</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
                 </ul>
+                <form class="d-flex ms-lg-3 search-form" action="{{ url_for('public.search') }}">
+                    <input class="form-control" type="search" placeholder="Search...">
+                    <button class="btn btn-outline-light ms-2" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
             </div>
         </div>
     </nav>
 </header>
+
+<!-- Mobile Search -->
+<div class="container d-lg-none my-3">
+    <form class="d-flex" action="{{ url_for('public.search') }}">
+        <input class="form-control" type="search" placeholder="Search...">
+        <button class="btn btn-primary ms-2" type="submit"><i class="fas fa-search"></i></button>
+    </form>
+</div>
