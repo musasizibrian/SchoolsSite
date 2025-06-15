@@ -6,12 +6,9 @@ public_bp = Blueprint('public', __name__)
 
 # --- Core Pages ---
 
-
-
-
 @public_bp.context_processor
 def inject_current_year():
-    return {'current_year': datetime.now().year} 
+    return {'current_year': datetime.now().year}
 
 @public_bp.route('/')
 def index():
@@ -81,22 +78,22 @@ def academics_research():
     }
     related_research = []
     return render_template('academics/research.html', research=research, related_research=related_research)
-# --- Admissions Section ---
 
+# --- Admissions Section ---
 @public_bp.route('/admissions/')
 def admissions_index():
     # This is the main /admissions/ page
-    return render_template('admissions/index.html', 
+    return render_template('admissions/index.html',
                            page_title="Admissions Overview") # Example context
 
 @public_bp.route('/admissions/apply/')
 def admissions_apply():
-    return render_template('admissions/apply.html', 
+    return render_template('admissions/apply.html',
                            page_title="How to Apply")
 
 @public_bp.route('/admissions/requirements/')
 def admissions_requirements():
-    return render_template('admissions/requirements.html', 
+    return render_template('admissions/requirements.html',
                            page_title="Admission Requirements")
 
 # You might also want a route for programs if it's under admissions
@@ -235,9 +232,16 @@ def show_500():
 # It's better to register actual error handlers in your app factory (app/__init__.py)
 # like this:
 #
+# from flask import Flask # Make sure to import Flask if not already done
+#
 # def create_app():
 #     app = Flask(__name__)
-#     # ...
+#     # ... other app configurations ...
+#
+#     # Register blueprints
+#     from .routes.public import public_bp # Assuming this file is routes/public.py
+#     app.register_blueprint(public_bp)
+#     # ... register other blueprints ...
 #
 #     @app.errorhandler(404)
 #     def page_not_found_error(error):
@@ -245,7 +249,12 @@ def show_500():
 #
 #     @app.errorhandler(500)
 #     def internal_server_error_handler(error):
+#         # You might want to log the error here
+#         # import logging
+#         # logging.error(f"Internal Server Error: {error}", exc_info=True)
 #         return render_template('errors/500.html'), 500
 #
-#     register_routes(app)
+#     # If you had a function like register_routes(app) from an older structure,
+#     # ensure its functionality is now covered by blueprint registration.
+#
 #     return app

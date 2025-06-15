@@ -38,25 +38,73 @@
             <div class="collapse navbar-collapse" id="mainNavbar">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="{{ url_for('public.index') }}">Home</a></li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">About</a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Overview</a></li>
-                            <li><a class="dropdown-item" href="#">Leadership</a></li>
-                        </ul>
-                    </li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('public.about') }}">About Us</a></li>
+                    
+                    <!-- Academics Dropdown -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Academics</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Programs</a></li>
-                            <li><a class="dropdown-item" href="#">Research</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('public.academics_programs') }}">Programs</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('public.academics_faculties') }}">Faculties</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('public.academics_departments') }}">Departments</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('public.academics_research') }}">Research</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="#">Admissions</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">News</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+
+                    <!-- Admissions Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Admissions</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ url_for('public.admissions_index') }}">Overview</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('public.admissions_requirements') }}">Requirements</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('public.admissions_apply') }}">Apply</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('public.admissions_programs') }}">Programs</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- News -->
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('public.news_index') }}">News</a></li>
+
+                    <!-- Events -->
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('public.events_index') }}">Events</a></li>
+
+                    <!-- Student Life Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Student Life</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ url_for('public.student_life_index') }}">Overview</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('public.student_life_housing') }}">Housing</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('public.student_life_clubs') }}">Clubs</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('public.student_life_sports') }}">Sports</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('public.gallery') }}">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('public.testimonials') }}">Testimonials</a></li>
+                    
+                    <!-- Legal Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Legal</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ url_for('public.legal_privacy') }}">Privacy Policy</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('public.legal_terms') }}">Terms of Service</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('public.legal_sitemap') }}">Sitemap</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Support Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Support</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ url_for('public.support_donate') }}">Donate</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('public.support_careers') }}">Careers</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('public.contact') }}">Contact</a></li>
                 </ul>
-                <form class="d-flex ms-lg-3 search-form" action="{{ url_for('public.search') }}">
+                <!-- Search form inside navbar -->
+                <form class="d-flex ms-lg-3 search-form" action="#" method="get">
                     <input class="form-control" type="search" placeholder="Search...">
                     <button class="btn btn-outline-light ms-2" type="submit">
                         <i class="fas fa-search"></i>
@@ -69,7 +117,7 @@
 
 <!-- Mobile Search -->
 <div class="container d-lg-none my-3">
-    <form class="d-flex" action="{{ url_for('public.search') }}">
+    <form class="d-flex" action="#" method="get">
         <input class="form-control" type="search" placeholder="Search...">
         <button class="btn btn-primary ms-2" type="submit"><i class="fas fa-search"></i></button>
     </form>
