@@ -1,46 +1,53 @@
-<!-- Top Contact Bar -->
+<!-- Combined Top Contact Bar -->
 <div class="top-contact-bar py-2 bg-warning">
     <div class="container d-flex justify-content-between align-items-center flex-wrap">
-        <div class="d-flex flex-wrap align-items-center">
-            <a href="mailto:info@triangle.ac.ug" class="contact-link me-3">
+        <!-- Contact Info -->
+        <div class="contact-info d-flex flex-wrap align-items-center">
+            <a href="mailto:info@triangle.ac.ug" class="text-dark text-decoration-none small me-3">
                 <i class="fas fa-envelope me-1"></i> info@triangle.ac.ug
             </a>
-            <a href="tel:+256782860259" class="contact-link">
+            <a href="tel:+256782860259" class="text-dark text-decoration-none small">
                 <i class="fas fa-phone me-1"></i> (+256) 782 860 259
             </a>
         </div>
-        <div class="d-flex align-items-center">
-            <a href="#" class="quick-link">Quick Links</a>
-            <span class="divider">|</span>
-            <a href="#" class="quick-link">eLearning</a>
-            <span class="divider">|</span>
-            <a href="#" class="quick-link">Timetables</a>
+
+        <!-- Quick Links -->
+        <div class="quick-links d-flex align-items-center">
+            <a href="#" class="text-dark fw-semibold small mx-2 text-decoration-none">Quick Links</a>
+            <span class="text-dark small">|</span>
+            <a href="#" class="text-dark fw-semibold small mx-2 text-decoration-none">eLearning</a>
+            <span class="text-dark small">|</span>
+            <a href="#" class="text-dark fw-semibold small ms-2 text-decoration-none">Timetables</a>
         </div>
     </div>
 </div>
 
-<!-- Main Header -->
+<!-- Main Header Navigation -->
 <header class="main-header sticky-top">
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
+            <!-- Logo & Branding -->
             <a class="navbar-brand d-flex align-items-center" href="{{ url_for('public.index') }}">
-                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Triangle Logo" class="logo">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Triangle Logo" class="logo" height="50">
                 <div class="brand-text d-none d-md-block ms-2">
                     <div class="fw-bold">Triangle Secondary School</div>
                     <small>Empowering Future Leaders</small>
                 </div>
             </a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+            <!-- Mobile Toggle Button -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+                    aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
+            <!-- Navigation Links -->
             <div class="collapse navbar-collapse" id="mainNavbar">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="{{ url_for('public.index') }}">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url_for('public.about') }}">About Us</a></li>
-                    
-                    <!-- Academics Dropdown -->
+
+                    <!-- Academics -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Academics</a>
                         <ul class="dropdown-menu">
@@ -51,7 +58,7 @@
                         </ul>
                     </li>
 
-                    <!-- Admissions Dropdown -->
+                    <!-- Admissions -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Admissions</a>
                         <ul class="dropdown-menu">
@@ -62,13 +69,10 @@
                         </ul>
                     </li>
 
-                    <!-- News -->
                     <li class="nav-item"><a class="nav-link" href="{{ url_for('public.news_index') }}">News</a></li>
-
-                    <!-- Events -->
                     <li class="nav-item"><a class="nav-link" href="{{ url_for('public.events_index') }}">Events</a></li>
 
-                    <!-- Student Life Dropdown -->
+                    <!-- Student Life -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Student Life</a>
                         <ul class="dropdown-menu">
@@ -81,8 +85,8 @@
 
                     <li class="nav-item"><a class="nav-link" href="{{ url_for('public.gallery') }}">Gallery</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url_for('public.testimonials') }}">Testimonials</a></li>
-                    
-                    <!-- Legal Dropdown -->
+
+                    <!-- Legal -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Legal</a>
                         <ul class="dropdown-menu">
@@ -92,7 +96,7 @@
                         </ul>
                     </li>
 
-                    <!-- Support Dropdown -->
+                    <!-- Support -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Support</a>
                         <ul class="dropdown-menu">
@@ -103,19 +107,19 @@
 
                     <li class="nav-item"><a class="nav-link" href="{{ url_for('public.contact') }}">Contact</a></li>
                 </ul>
-                <!-- Search form inside navbar -->
-                <form class="d-flex ms-lg-3 search-form" action="#" method="get">
-                    <input class="form-control" type="search" placeholder="Search...">
-                    <button class="btn btn-outline-light ms-2" type="submit">
+
+                <!-- Desktop Search -->
+                <form class="d-none d-lg-flex ms-3" action="#" method="get">
+                    <input class="form-control form-control-sm" type="search" placeholder="Search...">
+                    <button class="btn btn-sm btn-outline-light ms-2" type="submit">
                         <i class="fas fa-search"></i>
                     </button>
-                </form>
-            </div>
+                </form>            </div>
         </div>
     </nav>
 </header>
 
-<!-- Mobile Search -->
+<!-- Mobile Search (hidden on large screens) -->
 <div class="container d-lg-none my-3">
     <form class="d-flex" action="#" method="get">
         <input class="form-control" type="search" placeholder="Search...">

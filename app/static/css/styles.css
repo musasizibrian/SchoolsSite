@@ -1,24 +1,34 @@
 /* =============================================
-   KABALE UNIVERSITY - MAIN STYLESHEET
-   Version: 3.0
-   Covers all templates from base to research
+   KABALE UNIVERSITY - COMBINED STYLESHEET
+   Version: Enhanced Nav + Main 3.0
 ============================================= */
 
 /* ========================
    BASE STYLES & VARIABLES
 ======================== */
 :root {
-    /* Color Scheme */
-    --primary: #003366;       /* University blue */
-    --secondary: #FFD700;     /* Gold accent */
+    /* Color Scheme (from MAIN, with NAV variables merged/adapted) */
+    --primary: #003366;       /* University blue / Main Nav BG */
+    --secondary: #FFD700;     /* Gold accent / Nav Hover */
     --accent: #00CCFF;        /* Light blue */
-    --light: #F8F9FA;         /* Light gray */
-    --dark: #212529;          /* Dark gray */
-    --white: #FFFFFF;
+    --light: #F8F9FA;         /* Light gray / Dropdown Hover BG */
+    --dark: #212529;          /* Dark gray / Dropdown Text */
+    --white: #FFFFFF;         /* Nav Text / Dropdown BG */
     --success: #28a745;
     --warning: #ffc107;
     --danger: #dc3545;
     --info: #17a2b8;
+
+    /* Navigation Specific (can be overridden by above if values are same) */
+    --nav-bg: var(--primary);       /* Using primary for nav background */
+    --nav-text: var(--white);       /* Using white for nav text */
+    --nav-hover: var(--secondary);  /* Using secondary for nav hover */
+    --nav-transition: all 0.3s ease;
+    --dropdown-bg: var(--white);    /* Using white for dropdown background */
+    --dropdown-text: var(--dark);   /* Using dark for dropdown text */
+    --dropdown-hover-bg: var(--light); /* Using light for dropdown hover bg */
+    --dropdown-hover-text: var(--primary); /* University blue for dropdown text on hover */
+
 
     /* Typography */
     --font-primary: 'Poppins', sans-serif;
@@ -48,7 +58,7 @@
 
     /* Transitions */
     --transition-fast: 0.15s ease;
-    --transition-normal: 0.3s ease;
+    --transition-normal: 0.3s ease; /* Same as --nav-transition */
     --transition-slow: 0.5s ease;
 }
 
@@ -83,17 +93,18 @@ img {
 }
 
 ul, ol {
-    list-style-position: inside;
+    list-style-position: inside; /* From MAIN */
+    /* list-style: none; From NAV - will be applied specifically to .navbar-nav */
 }
 
 /* ========================
    UTILITY CLASSES
 ======================== */
-.container {
+.container { /* General container from MAIN */
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 var(--space-md);
+    padding: 0 var(--space-md); /* Using spacing variable */
 }
 
 .section {
@@ -166,7 +177,7 @@ p {
 }
 
 .btn-primary:hover {
-    background-color: #002244;
+    background-color: #002244; /* Darker primary */
     transform: translateY(-2px);
     box-shadow: var(--shadow-sm);
 }
@@ -177,7 +188,7 @@ p {
 }
 
 .btn-secondary:hover {
-    background-color: #E6C200;
+    background-color: #E6C200; /* Darker secondary */
     transform: translateY(-2px);
     box-shadow: var(--shadow-sm);
 }
@@ -220,7 +231,7 @@ p {
 .form-control:focus {
     outline: none;
     border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.1);
+    box-shadow: 0 0 0 3px rgba(var(--primary-rgb, 0, 51, 102), 0.1); /* Assuming --primary-rgb for box shadow color */
 }
 
 textarea.form-control {
@@ -228,130 +239,382 @@ textarea.form-control {
     resize: vertical;
 }
 
-/* ========================
-   LAYOUT COMPONENTS
-======================== */
-/* Header & Navigation */
-.announcement-bar { /* This is an older definition, the new one below will override it */
-    background-color: var(--primary);
-    color: var(--white);
-    padding: var(--space-xs) 0;
-    font-size: 0.9rem;
+/* =============================================
+   ENHANCED NAVIGATION SYSTEM STYLES
+============================================= */
+/* Base Navbar Styles from NAV SYSTEM */
+.navbar { /* This is the primary .navbar definition now */
+  background-color: var(--nav-bg); /* Uses nav variable, which defaults to --primary */
+  padding: 0.5rem 0; /* from NAV */
+  position: relative; /* from NAV, could be sticky from main-header class */
+  z-index: 1030; /* Higher z-index, from MAIN .main-header */
+  transition: all var(--nav-transition); /* From NAV & MAIN */
 }
 
-.announcement-bar .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: var(--space-sm);
-}
-
-.header { /* This is an older definition, the new one below might affect it or be separate */
+/* Sticky header effect (can be applied via JS adding a class like 'scrolled') */
+.navbar.sticky-top { /* If Bootstrap's sticky-top is used on .navbar directly */
+    position: -webkit-sticky;
     position: sticky;
     top: 0;
-    background-color: var(--white);
-    box-shadow: var(--shadow-sm);
-    z-index: 1000;
-    padding: var(--space-sm) 0;
+}
+.navbar.scrolled { /* Custom class for scrolled state */
+  background-color: var(--nav-bg); /* Or a slightly different color if desired */
+  box-shadow: var(--shadow-md);
 }
 
-.navbar { /* This is an older definition, the new one below will override/extend it */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+
+/* Specific container for navbar, if different from general .container */
+/* Using general .container for consistency, NAV SYSTEM's .navbar-container properties can be merged if needed */
+.navbar .container { /* Ensuring navbar uses the general .container properties */
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  /* padding: 0 15px; -> from general .container via --space-md */
+  /* max-width: 1200px; -> from general .container */
+  /* margin: 0 auto; -> from general .container */
 }
 
-.logo-container {
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
+
+/* Brand/Logo */
+.navbar-brand { /* From NAV SYSTEM, but MAIN's ideas can be merged */
+  display: flex;
+  align-items: center;
+  color: var(--nav-text);
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.5rem 0; /* From NAV */
+  transition: transform var(--transition-normal); /* From MAIN */
 }
 
-.logo {
-    height: 50px;
+.navbar-brand:hover {
+    transform: scale(1.02); /* From MAIN */
 }
 
-.logo-text h1 {
-    font-size: 1.5rem;
-    margin: 0;
-    color: var(--primary);
+.navbar-brand img { /* .logo class from MAIN can be used if img has it */
+  height: 50px;
+  margin-right: 10px; /* From NAV */
 }
-
-.logo-text p {
+/* .navbar-brand small from MAIN for tagline styling if needed */
+.navbar-brand .brand-text small { /* From MAIN's .brand-text small */
     font-size: 0.8rem;
-    color: var(--text-light);
-    margin: 0;
+    color: var(--nav-text); /* Ensure it's visible on nav-bg */
+    opacity: 0.8;
 }
 
-.nav-links {
-    display: flex;
-    list-style: none;
-    gap: var(--space-sm);
+/* Mobile Toggle Button */
+.navbar-toggler {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-sm); /* Using variable */
+  padding: 0.75rem;
+  cursor: pointer;
+  display: none; /* Initially hidden, shown in media query */
+  position: relative;
+  z-index: 1001; /* Above dropdowns if they overlap */
+  transition: transform var(--transition-normal); /* From MAIN */
+}
+/* From MAIN - active state rotation for toggler */
+.navbar-toggler[aria-expanded="true"] {
+    transform: rotate(90deg);
 }
 
-.nav-links li a {
-    padding: var(--space-xs) var(--space-sm);
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: var(--space-xs);
+.navbar-toggler-icon { /* Custom icon from NAV SYSTEM */
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--nav-text);
+  position: relative;
+  transition: var(--nav-transition);
 }
 
-.nav-links li a:hover,
-.nav-links li a.active {
-    color: var(--primary);
+.navbar-toggler-icon::before,
+.navbar-toggler-icon::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: inherit;
+  left: 0;
+  transition: var(--nav-transition);
 }
 
-.dropdown {
-    position: relative;
+.navbar-toggler-icon::before { top: -6px; }
+.navbar-toggler-icon::after { bottom: -6px; }
+
+/* Active Toggle State from NAV SYSTEM for custom icon */
+.navbar-toggler.active .navbar-toggler-icon { background: transparent; }
+.navbar-toggler.active .navbar-toggler-icon::before { transform: translateY(6px) rotate(45deg); }
+.navbar-toggler.active .navbar-toggler-icon::after { transform: translateY(-6px) rotate(-45deg); }
+
+
+/* Navigation Menu */
+.navbar-nav { /* From NAV SYSTEM */
+  display: flex;
+  flex-direction: row; /* Horizontal on desktop */
+  list-style: none; /* Explicitly none */
+  margin: 0;
+  padding: 0;
 }
 
-.dropdown-menu { /* This is an older definition, the new one below will override it */
+.nav-item {
+  position: relative; /* For dropdown positioning */
+}
+
+.nav-link { /* Combined from NAV SYSTEM and MAIN's "FINAL IMPROVED" */
+  color: var(--nav-text);
+  padding: 0.75rem 1rem; /* From NAV, can be adjusted */
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  transition: var(--nav-transition);
+  position: relative; /* For underline effect from MAIN */
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--nav-hover) !important; /* From NAV, important to override BS */
+}
+
+/* Underline effect from MAIN's "FINAL IMPROVED" */
+.navbar-nav .nav-link:not(.dropdown-toggle)::after {
+    content: '';
     position: absolute;
-    top: 100%;
+    bottom: 0; /* Adjust if padding changes, e.g., bottom: 0.25rem; */
+    left: 1rem;
+    right: 1rem;
+    height: 2px;
+    background-color: var(--nav-hover); /* Use nav-hover color for underline */
+    transform: scaleX(0);
+    transition: transform var(--transition-normal);
+}
+.navbar-nav .nav-link:hover:not(.dropdown-toggle)::after,
+.navbar-nav .nav-link.active:not(.dropdown-toggle)::after {
+    transform: scaleX(1);
+}
+
+
+/* Dropdown Indicators */
+.dropdown-toggle::after { /* From NAV SYSTEM */
+  content: '\25BE'; /* Down arrow */
+  margin-left: 5px;
+  font-size: 0.8em;
+  transition: transform var(--transition-normal);
+}
+.dropdown-toggle.active::after { /* JS might add .active to toggle */
+  transform: rotate(180deg);
+}
+
+/* Dropdown Menus */
+.dropdown-menu { /* From NAV SYSTEM, with MAIN's shadow */
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: var(--dropdown-bg);
+  min-width: 220px;
+  box-shadow: var(--shadow-md); /* Using shadow variable */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-fast), visibility var(--transition-fast); /* Faster transition for dropdowns */
+  z-index: 1001;
+  border-radius: var(--radius-sm); /* Using variable */
+  padding: 0.5rem 0; /* From NAV */
+  border: none; /* From MAIN */
+}
+
+/* Multi-level Dropdown Support */
+.dropdown-menu .nav-item:hover > .dropdown-menu { /* Targeting nested dropdown */
+    top: 0; /* Align with parent item */
+    left: 100%; /* Position to the right */
+    margin-top: -0.5rem; /* Adjust to align better with parent item's padding */
+    margin-left: 0.1rem; /* Small gap */
+}
+/* Ensure sub-sub-menus also work */
+.dropdown-menu .dropdown-menu .nav-item:hover > .dropdown-menu {
+    /* Same as above, or adjust if needed for deeper levels */
+    top: 0;
+    left: 100%;
+    margin-top: -0.5rem;
+    margin-left: 0.1rem;
+}
+
+
+.dropdown-item { /* From NAV SYSTEM, with MAIN's hover */
+  color: var(--dropdown-text);
+  padding: 0.5rem 1.5rem; /* From MAIN */
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* For potential sub-menu indicators */
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+  font-weight: 500; /* From MAIN */
+}
+
+.dropdown-item:hover {
+  background: var(--dropdown-hover-bg); /* Uses variable */
+  color: var(--dropdown-hover-text); /* Uses variable */
+}
+
+/* Show Dropdown on Hover/Focus */
+.nav-item:hover > .dropdown-menu, /* Show first level */
+.nav-item.dropdown .nav-item:hover > .dropdown-menu { /* Show nested levels */
+  opacity: 1;
+  visibility: visible;
+}
+/* Accessibility: Show on focus for keyboard navigation */
+.nav-link:focus + .dropdown-menu,
+.dropdown-item:focus + .dropdown-menu, /* May need JS to handle focus on parent for sub-menus */
+.nav-item:focus-within > .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+}
+
+
+/* Mobile Styles for NAV SYSTEM */
+@media (max-width: 991.98px) {
+  .navbar-toggler {
+    display: block; /* Show toggler */
+  }
+
+  .navbar-nav { /* Collapsed menu styles */
+    flex-direction: column;
+    width: 100%;
+    max-height: 0;
+    overflow-y: auto; /* Allow scrolling if content exceeds viewport */
+    transition: max-height 0.35s ease-out; /* NAV SYSTEM's transition */
+    position: absolute;
+    top: 100%; /* Position below the navbar */
     left: 0;
-    background: var(--white);
-    min-width: 200px;
-    box-shadow: var(--shadow-md);
-    border-radius: var(--radius-sm);
-    opacity: 0;
-    visibility: hidden;
-    transition: all var(--transition-normal);
-    z-index: 100;
-}
+    background: var(--nav-bg); /* Same as navbar */
+    box-shadow: var(--shadow-sm); /* Softer shadow for mobile */
+    /* padding: 1rem 0; -> Applied when .show */
+  }
 
-.dropdown:hover .dropdown-menu {
-    opacity: 1;
+  .navbar-nav.show { /* When toggled open by JS */
+    max-height: calc(100vh - 70px); /* Example: full height minus navbar height */
+    padding: 1rem 0;
+  }
+
+  .nav-item {
+    width: 100%;
+  }
+  .navbar-nav .nav-link:not(.dropdown-toggle)::after {
+      display: none; /* Hide underline in mobile collapsed menu */
+  }
+
+  /* Mobile Dropdown Menu Styling */
+  .dropdown-menu { /* Overrides desktop absolute positioning */
+    position: static; /* Flow naturally in the column */
+    box-shadow: none;
+    background: rgba(0,0,0,0.1); /* Slightly darker bg for nested items */
+    width: 100%;
+    opacity: 1; /* Always visible if parent is shown */
     visibility: visible;
-    transform: translateY(5px);
-}
+    padding-left: 1rem; /* Indent mobile dropdown items */
+    display: none; /* Initially hidden, toggled by JS */
+    border-radius: 0; /* No radius within the column */
+  }
 
-.dropdown-menu a {
-    padding: var(--space-sm);
+  .dropdown-menu.show { /* When toggled open by JS */
     display: block;
-    border-bottom: 1px solid var(--light);
+  }
+
+  /* Nested dropdowns in mobile */
+  .dropdown-menu .dropdown-menu {
+    padding-left: 1rem; /* Further indent sub-sub-menus */
+    background: rgba(0,0,0,0.15); /* Even slightly darker */
+  }
+   .dropdown-menu .nav-item:hover > .dropdown-menu { /* Reset desktop positioning for mobile */
+    top: auto;
+    left: auto;
+    margin-top: 0;
+    margin-left: 0;
+  }
+
+
+  .dropdown-item {
+    color: var(--nav-text); /* White text for mobile dropdown items */
+    padding: 0.75rem 1.5rem;
+  }
+  .dropdown-item:hover {
+    background: var(--nav-hover); /* Use nav hover color */
+    color: var(--nav-bg); /* Dark text on hover */
+  }
+
+  /* Mobile dropdown toggle indicator */
+  .dropdown-toggle::after { /* From NAV SYSTEM */
+    transform: rotate(-90deg); /* Point right for closed state */
+    position: absolute; /* Better control for positioning */
+    right: 1.5rem;
+    top: 50%;
+    margin-top: -0.4em; /* Vertically center */
+  }
+  .dropdown-toggle.active::after { /* When dropdown is open */
+    transform: rotate(0deg); /* Point down */
+  }
+
+  /* Search form in mobile */
+  .navbar .search-form { /* Assuming .search-form class is used */
+      margin: 1rem 15px; /* Add to collapsed menu */
+      width: auto; /* Override desktop width */
+  }
+  .navbar .search-form input,
+  .navbar .search-form button {
+      width: auto; /* Let them size within flex */
+      flex-grow: 1;
+  }
+  .navbar .search-form input {
+      margin-right: 0.5rem;
+  }
+
+
 }
 
-.dropdown-menu a:hover {
-    background: var(--light);
+/* ========================
+   OTHER LAYOUT COMPONENTS (From MAIN)
+======================== */
+/* Top Contact Bar (from MAIN's previous additions) */
+.top-contact-bar {
+    background-color: var(--warning); /* Use variable */
+    font-size: 0.875rem;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    padding: var(--space-xs) 0;
+}
+.top-contact-bar .container {
+    /* Uses general .container styles */
+}
+.top-contact-bar a {
+    color: var(--dark);
+    text-decoration: none;
+}
+.top-contact-bar a:hover {
     color: var(--primary);
 }
-
-.auth-buttons {
-    display: flex;
-    gap: var(--space-sm);
-    align-items: center;
+.top-contact-bar .divider {
+    color: rgba(0,0,0,0.4);
+    margin: 0 var(--space-xs);
 }
 
-.mobile-menu-btn {
-    display: none;
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    color: var(--primary);
-    cursor: pointer;
+
+/* Announcement Bar (from MAIN, can be used or removed) */
+.announcement-bar {
+  background-color: var(--primary);
+  color: var(--white);
+  font-size: 0.9rem;
+  letter-spacing: 0.3px;
+  padding: var(--space-xs) 0;
 }
+.announcement-bar .container {
+    /* Uses general .container styles */
+}
+.announcement-bar a {
+  color: var(--white);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+.announcement-bar a:hover {
+  color: var(--secondary);
+}
+
 
 /* Hero Section */
 .hero {
@@ -364,29 +627,26 @@ textarea.form-control {
     color: var(--white);
     text-align: center;
 }
-
+/* ... rest of Hero styles from MAIN ... */
 .hero-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 51, 102, 0.7);
+    background: rgba(0, 51, 102, 0.7); /* Corresponds to var(--primary) with opacity */
 }
-
 .hero-content {
     position: relative;
     z-index: 1;
     max-width: 800px;
     margin: 0 auto;
 }
-
 .hero h1 {
-    font-size: 3rem;
+    font-size: 3rem; /* Can be responsive */
     margin-bottom: var(--space-md);
-    color: var(--white);
+    color: var(--white); /* Ensure heading color is white on hero */
 }
-
 .hero-buttons {
     display: flex;
     gap: var(--space-md);
@@ -394,14 +654,15 @@ textarea.form-control {
     margin-top: var(--space-lg);
 }
 
+
 /* Page Header */
 .page-header {
     padding: var(--space-xl) 0;
-    background: linear-gradient(rgba(0, 51, 102, 0.8), rgba(0, 51, 102, 0.8)), url('../images/page-header-bg.jpg') no-repeat center center/cover;
+    background: linear-gradient(rgba(var(--primary-rgb,0,51,102),0.8), rgba(var(--primary-rgb,0,51,102),0.8)), url('../images/page-header-bg.jpg') no-repeat center center/cover; /* Placeholder URL */
     color: var(--white);
     text-align: center;
 }
-
+/* ... rest of Page Header styles from MAIN ... */
 .breadcrumb {
     display: flex;
     justify-content: center;
@@ -410,26 +671,24 @@ textarea.form-control {
     gap: var(--space-xs);
     font-size: 0.9rem;
 }
-
 .breadcrumb a {
     color: var(--white);
     opacity: 0.8;
 }
-
 .breadcrumb a:hover {
     opacity: 1;
     text-decoration: underline;
 }
-
 .breadcrumb .current {
     opacity: 1;
     font-weight: 500;
 }
-
-.breadcrumb i {
+.breadcrumb i { /* For separators like > */
     font-size: 0.7rem;
     opacity: 0.6;
+    margin: 0 var(--space-xs);
 }
+
 
 /* Cards */
 .card {
@@ -439,256 +698,32 @@ textarea.form-control {
     box-shadow: var(--shadow-sm);
     transition: all var(--transition-normal);
 }
-
 .card:hover {
     transform: translateY(-5px);
     box-shadow: var(--shadow-md);
 }
-
 .card-header {
     padding-bottom: var(--space-sm);
     margin-bottom: var(--space-md);
     border-bottom: 1px solid var(--light);
 }
-
 .card-title {
-    margin-bottom: 0;
+    margin-bottom: 0; /* Often h tags inside have own margin */
 }
+
 
 /* Grid System */
 .grid {
     display: grid;
     gap: var(--space-md);
 }
-
-.grid-2 {
-    grid-template-columns: repeat(2, 1fr);
-}
-
-.grid-3 {
-    grid-template-columns: repeat(3, 1fr);
-}
-
-.grid-4 {
-    grid-template-columns: repeat(4, 1fr);
-}
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
 
 
 /* ========================
-   GLOBAL RESET & BASE
-======================== */
-body, html {
-  font-family: 'Segoe UI', Roboto, sans-serif; /* Note: :root already defines --font-primary, this might be redundant or for a different context */
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* ========================
-   HEADER STYLES
-======================== */
-
-/* START OF ADDED STYLES */
-/* Header Styles */
-.top-contact-bar {
-    background-color: #FFC107;
-    font-size: 0.875rem;
-    border-bottom: 1px solid rgba(0,0,0,0.1);
-}
-
-.announcement-bar { /* This will override the .announcement-bar definition from Layout Components above */
-    background-color: #0d6efd;
-    font-size: 0.9rem;
-}
-
-.main-header { /* This is the new main header style */
-    transition: all 0.3s ease;
-    z-index: 1030;
-}
-
-.navbar-brand {
-    transition: transform 0.3s ease;
-}
-
-.navbar-brand:hover {
-    transform: scale(1.02);
-}
-
-.navbar-nav .nav-link {
-    padding: 0.5rem 1rem;
-    transition: all 0.2s ease;
-    position: relative;
-}
-
-.navbar-nav .nav-link:not(.dropdown-toggle)::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 1rem;
-    right: 1rem;
-    height: 2px;
-    background-color: white;
-    transform: scaleX(0);
-    transition: transform 0.2s ease;
-}
-
-.navbar-nav .nav-link:hover:not(.dropdown-toggle)::after,
-.navbar-nav .nav-link.active:not(.dropdown-toggle)::after {
-    transform: scaleX(1);
-}
-
-.dropdown-menu { /* This will override the .dropdown-menu definition from Layout Components above */
-    border: none;
-    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
-}
-
-.dropdown-item {
-    padding: 0.5rem 1.5rem;
-    transition: all 0.2s ease;
-}
-
-.dropdown-item:hover {
-    background-color: rgba(13, 110, 253, 0.1);
-}
-
-/* Responsive adjustments for new header styles */
-@media (max-width: 991.98px) {
-    .navbar-collapse {
-        background-color: #0d6efd;
-        padding: 1rem;
-        margin-top: 0.5rem;
-        border-radius: 0.25rem;
-        box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
-    }
-    
-    .navbar-nav {
-        gap: 0.5rem;
-    }
-    
-    .dropdown-menu { /* Specific to new header styles in mobile */
-        margin-left: 1rem;
-        background-color: rgba(255,255,255,0.1);
-    }
-    
-    .dropdown-item { /* Specific to new header styles in mobile */
-        color: rgba(255,255,255,0.8);
-    }
-    
-    .dropdown-item:hover { /* Specific to new header styles in mobile */
-        color: white;
-        background-color: transparent;
-    }
-}
-
-/* Animation for mobile menu for new header styles */
-.navbar-toggler {
-    transition: transform 0.3s ease;
-}
-
-.navbar-toggler[aria-expanded="true"] {
-    transform: rotate(90deg);
-}
-
-/* Sticky header effect for new header styles */
-.sticky-top {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-}
-/* END OF ADDED STYLES */
-
-
-/* Announcement Bar (older definition, likely overridden by styles above or below if selectors match) */
-.announcement-bar {
-  background-color: #003366; /* Deep blue */
-  color: #fff;
-  font-size: 0.9rem;
-  letter-spacing: 0.3px;
-}
-
-.announcement-bar a {
-  color: #fff;
-  text-decoration: none;
-  transition: color 0.3s;
-}
-
-.announcement-bar a:hover {
-  color: #ffc107;
-}
-
-/* Top Contact Info Bar (older definition) */
-.top-bar {
-  background-color: #f8f9fa;
-  border-bottom: 1px solid #ddd;
-  font-size: 0.85rem;
-  color: #6c757d;
-  padding: 0.3rem 0;
-}
-
-/* Main Header (older definition) */
-.main-header {
-  background-color: #ffffff;
-  border-bottom: 1px solid #e0e0e0;
-  padding: 0.75rem 0;
-  position: relative;
-  z-index: 100; /* Note: new .main-header has z-index 1030 */
-}
-
-.logo-link img {
-  height: 50px;
-}
-
-.header-actions button {
-  border: none;
-  background: none;
-  font-size: 1.25rem;
-  cursor: pointer;
-  transition: color 0.3s ease;
-}
-
-.header-actions button:hover {
-  color: #0056b3;
-}
-
-/* ========================
-   NAVBAR STYLES
-======================== */
-.navbar { /* This is a general navbar style, new .navbar-nav styles will apply to its children */
-  background-color: #003366 !important;
-}
-
-.navbar .nav-link { /* General nav-link, new .navbar-nav .nav-link will be more specific */
-  color: #f8f9fa !important;
-  font-weight: 500;
-  padding: 0.7rem 1rem;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.navbar .nav-link:hover,
-.navbar .nav-link.active {
-  background-color: #004080;
-  color: #ffffff !important;
-}
-
-.navbar .dropdown-menu { /* General dropdown-menu, new .dropdown-menu will likely override this */
-  background-color: #003366;
-  border: none;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-}
-
-.navbar .dropdown-item { /* General dropdown-item, new .dropdown-item will likely override this */
-  color: #fff;
-  font-size: 0.95rem;
-  padding: 0.6rem 1rem;
-}
-
-.navbar .dropdown-item:hover {
-  background-color: #004080;
-  color: #ffffff;
-}
-
-/* ========================
-   SEARCH OVERLAY
+   SEARCH OVERLAY (From MAIN)
 ======================== */
 .search-overlay {
   position: fixed;
@@ -697,22 +732,20 @@ body, html {
   width: 100%;
   height: 100%;
   background: rgba(0,0,0,0.8);
-  display: none;
+  display: none; /* Toggled by JS */
   align-items: center;
   justify-content: center;
-  z-index: 9999;
+  z-index: 9999; /* Very high z-index */
 }
-
 .search-overlay input {
   width: 80%;
   max-width: 600px;
   padding: 1rem;
   font-size: 1.2rem;
   border: none;
-  border-radius: 5px;
+  border-radius: var(--radius-sm);
 }
-
-.search-overlay button {
+.search-overlay button { /* Close button for overlay */
   position: absolute;
   top: 20px;
   right: 40px;
@@ -720,244 +753,96 @@ body, html {
   border: none;
   font-size: 2rem;
   color: white;
+  cursor: pointer;
 }
+
 
 /* ========================
-   RESPONSIVE ADJUSTMENTS (General, older block)
+   PAGE SPECIFIC STYLES (Example: Faculties)
 ======================== */
-@media (max-width: 768px) {
-  .logo-link .d-md-flex {
-    display: none !important;
-  }
-  .announcement-bar, .top-bar { /* Note: New styles have their own responsive rules */
-    text-align: center;
-  }
-  .header-actions {
-    gap: 0.5rem;
-  }
-  .navbar .nav-link { /* Note: New styles have their own responsive rules for .navbar-nav .nav-link */
-    padding: 0.5rem 1rem;
-  }
-}
-
-/* ========================
-   PAGE SPECIFIC STYLES
-======================== */
-/* Header Specific Styles (another set of header styles) */
-.site-header {
-  position: sticky;
-  top: 0;
-  z-index: 1030; /* Same as new .main-header */
-}
-
-.navbar-brand { /* Note: New .navbar-brand styles added above */
-  font-weight: 700;
-}
-
-.navbar-brand small {
-  font-size: 0.7rem;
-  opacity: 0.8;
-}
-
-.nav-link { /* General .nav-link, new .navbar-nav .nav-link is more specific */
-  display: flex;
-  align-items: center;
-  padding: 0.5rem 1rem;
-}
-
-.nav-link i {
-  width: 1.25em;
-  text-align: center;
-}
-
-.dropdown-menu { /* Note: New .dropdown-menu styles added above */
-  border: none;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-}
-
-.dropdown-item { /* Note: New .dropdown-item styles added above */
-  padding: 0.5rem 1.5rem;
-}
-
-/* Active state enhancement */
-.nav-link.active,
-.dropdown-item.active {
-  font-weight: 600;
-  position: relative;
-}
-
-.nav-link.active:after { /* Note: New .navbar-nav .nav-link.active::after is more specific */
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 1rem;
-  right: 1rem;
-  height: 2px;
-  background: var(--secondary);
-}
-
-/* Mobile optimizations (another set of responsive rules) */
-@media (max-width: 992px) { /* Note: New styles use 991.98px */
-  .navbar-collapse { /* Note: New styles have their own .navbar-collapse rules */
-    padding-top: 1rem;
-  }
-
-  .nav-link { /* Note: New styles have their own responsive rules for .navbar-nav .nav-link */
-    padding: 0.75rem 0;
-  }
-
-  .dropdown-menu { /* Note: New styles have their own responsive rules for .dropdown-menu */
-    box-shadow: none;
-    border-left: 3px solid var(--secondary);
-    margin-left: 1rem;
-  }
-}
-
-/* Faculties Page Styling */
-
-/* Hero Banner */
-.faculty-hero {
-    background: linear-gradient(to right, #004085, #007bff);
-    color: #fff;
+.faculty-hero { /* Copied from MAIN */
+    background: linear-gradient(to right, #004085, #007bff); /* Example colors */
+    color: var(--white);
     padding: 4rem 0;
     text-align: center;
-    border-radius: 0 0 20px 20px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    box-shadow: var(--shadow-md);
 }
-
 .faculty-hero h1 {
     font-size: 2.8rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
+    color: var(--white); /* Ensure white on dark bg */
 }
-
+/* ... rest of faculty styles from MAIN ... */
 .faculty-hero p {
     font-size: 1.1rem;
     opacity: 0.9;
     max-width: 700px;
     margin: 0 auto;
 }
-
-/* Faculties Section */
 .faculty-section {
     padding: 3rem 1rem;
-    background-color: #f5f8fa;
+    background-color: var(--light); /* Or slightly different bg */
 }
-
 .faculty-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2rem;
     margin-top: 2rem;
 }
-
-.faculty-card {
-    background-color: #fff;
-    border-radius: 16px;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+.faculty-card { /* Using general .card styles, can be extended */
+    /* ... specific faculty card styles if needed ... */
+    overflow: hidden; /* For image */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
-
-.faculty-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-}
-
 .faculty-card img {
     width: 100%;
     height: 180px;
     object-fit: cover;
-    border-bottom: 2px solid #dee2e6;
+    border-bottom: 2px solid var(--light);
 }
-
-.faculty-card .card-body {
+.faculty-card .card-body { /* Assuming card-body structure */
     padding: 1.2rem;
     flex-grow: 1;
 }
-
-.faculty-card h5 {
+.faculty-card h5 { /* Or .card-title if using that */
     font-size: 1.25rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
-    color: #0056b3;
+    color: var(--primary); /* Link-like color */
 }
-
 .faculty-card p {
     font-size: 0.95rem;
-    color: #6c757d;
+    color: var(--text-light);
     line-height: 1.5;
 }
 
-.faculty-card a.btn {
-    margin-top: 1rem;
-    font-weight: 500;
-    transition: background-color 0.3s ease;
-    border-radius: 8px;
-}
 
-.faculty-card a.btn:hover {
-    background-color: #0056b3;
-    color: #fff;
-}
-.faculties-section .card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.faculties-section .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-}
-.faculties-section input#facultySearchInput {
-    max-width: 500px;
-    margin: auto;
-}
-.modal-body img {
-    border-radius: 12px;
-}
-
-/* Responsive Utilities */
-@media (max-width: 576px) {
-    .faculty-hero h1 {
-        font-size: 2rem;
-    }
-
-    .faculty-hero p {
-        font-size: 1rem;
-    }
-
-    .faculty-card img {
-        height: 160px;
-    }
-}
-
-
-/* (Continue with the remaining sections as you already have: Academics, Events, News, etc...) */
 /* ========================
    FOOTER STYLES
 ======================== */
 .footer {
     background: var(--primary);
-    color: var(--white);
+    color: rgba(255,255,255,0.8); /* Slightly transparent white for base footer text */
     padding: var(--space-xl) 0 0;
 }
-
+/* ... rest of footer styles from MAIN ... */
 .footer-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: var(--space-xl);
     margin-bottom: var(--space-xl);
 }
-
 .footer-col h3 {
     position: relative;
     padding-bottom: var(--space-sm);
     margin-bottom: var(--space-md);
-    color: var(--white);
+    color: var(--white); /* Brighter for headings */
+    font-size: 1.2rem;
 }
-
 .footer-col h3::after {
     content: '';
     position: absolute;
@@ -967,7 +852,6 @@ body, html {
     height: 3px;
     background: var(--secondary);
 }
-
 .footer-col a {
     color: rgba(255, 255, 255, 0.8);
     display: flex;
@@ -976,41 +860,35 @@ body, html {
     padding: var(--space-xs) 0;
     transition: color var(--transition-fast);
 }
-
 .footer-col a:hover {
     color: var(--secondary);
 }
-
 .contact-info li {
     display: flex;
     gap: var(--space-sm);
     margin-bottom: var(--space-md);
     align-items: flex-start;
 }
-
 .contact-info i {
     font-size: 1.2rem;
     color: var(--secondary);
     margin-top: 3px;
 }
-
 .contact-info strong {
     display: block;
     color: var(--white);
 }
-
 .newsletter-form {
     display: flex;
     margin: var(--space-md) 0;
 }
-
 .newsletter-form input {
     flex: 1;
     padding: var(--space-sm);
     border: none;
     border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+    color: var(--dark);
 }
-
 .newsletter-form button {
     background: var(--secondary);
     color: var(--dark);
@@ -1018,22 +896,19 @@ body, html {
     padding: 0 var(--space-md);
     border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
     cursor: pointer;
-    transition: background var(--transition-fast);
+    transition: background-color var(--transition-fast);
 }
-
 .newsletter-form button:hover {
-    background: #e6c200;
+    background: #e6c200; /* Darker secondary */
 }
-
 .social-links {
     margin-top: var(--space-md);
 }
-
 .social-links h4 {
     margin-bottom: var(--space-sm);
     color: var(--white);
+    font-size: 1rem;
 }
-
 .social-links a {
     display: inline-flex;
     width: 40px;
@@ -1046,295 +921,202 @@ body, html {
     margin-right: var(--space-xs);
     transition: all var(--transition-fast);
 }
-
 .social-links a:hover {
     background: var(--secondary);
     color: var(--dark);
     transform: translateY(-3px);
 }
-
 .footer-bottom {
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     padding: var(--space-md) 0;
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    font-size: 0.9rem;
 }
-
-.footer-links {
+.footer-links { /* For links like Privacy, Terms in footer bottom */
     margin-top: var(--space-sm);
     display: flex;
     gap: var(--space-md);
     flex-wrap: wrap;
     justify-content: center;
 }
-
 .footer-links a {
     color: rgba(255, 255, 255, 0.7);
     transition: color var(--transition-fast);
 }
-
 .footer-links a:hover {
     color: var(--secondary);
 }
 
 /* ========================
- Mobile Navigation in mobile_nav.html
+ Mobile Off-canvas Navigation (if used, from MAIN)
 ======================== */
-.mobile-nav {
+.mobile-nav { /* This is for a separate off-canvas menu, distinct from .navbar-nav mobile */
     position: fixed;
     top: 0;
     left: 0;
-    width: 85%;              /* Use the 85% width for better screen coverage */
+    width: 85%;
     max-width: 320px;
-    height: 100vh;           /* Full viewport height */
-    background: #fff;
-    z-index: 1001;           /* Keep it above overlay */
+    height: 100vh;
+    background: var(--white);
+    z-index: 1001; /* Above overlay */
     transform: translateX(-100%);
-    transition: transform 0.3s ease;
+    transition: transform var(--transition-normal);
     overflow-y: auto;
     padding: 1rem;
     box-shadow: 2px 0 10px rgba(0,0,0,0.1);
 }
-
-.mobile-nav.open,
-.mobile-nav[aria-hidden="false"] {
+.mobile-nav.open {
     transform: translateX(0);
 }
-
+/* ... rest of .mobile-nav styles from MAIN ... */
 .mobile-nav-header {
     display: flex;
     justify-content: flex-end;
-    padding: 1rem 0;
+    padding-bottom: 1rem; /* Space below close button */
+    border-bottom: 1px solid var(--light);
+    margin-bottom: 1rem;
 }
-
-.close-menu {
+.close-menu { /* Button to close .mobile-nav */
     background: none;
     border: none;
     font-size: 1.5rem;
-    color: var(--primary, #007bff); /* fallback color */
+    color: var(--primary);
     cursor: pointer;
 }
-
 .mobile-nav-search {
-    margin: 1rem 0;
+    margin-bottom: 1rem;
     position: relative;
 }
-
 .mobile-nav-search input {
     width: 100%;
     padding: 0.75rem 1rem;
     border: 1px solid #ddd;
-    border-radius: 4px;
-    box-sizing: border-box;
+    border-radius: var(--radius-sm);
 }
-
-.mobile-nav-search button {
+.mobile-nav-search button { /* Search icon button inside input */
     position: absolute;
     right: 10px;
     top: 50%;
     transform: translateY(-50%);
     background: none;
     border: none;
-    color: var(--primary, #007bff);
+    color: var(--primary);
     cursor: pointer;
 }
-
-.mobile-nav-menu {
+.mobile-nav-menu { /* ul for .mobile-nav */
     list-style: none;
     padding: 0;
-    margin: 1rem 0;
+    margin: 0;
 }
-
 .mobile-nav-menu li {
-    margin-bottom: 0.5rem;
-    border-top: 1px solid #eee; /* subtle separator */
+    border-bottom: 1px solid var(--light); /* Separator */
 }
-
+.mobile-nav-menu li:last-child {
+    border-bottom: none;
+}
 .mobile-nav-menu a,
-.mobile-nav-menu .menu-heading,
-.mobile-nav-menu .submenu-toggle {
+.mobile-nav-menu .menu-heading, /* For non-link section titles */
+.mobile-nav-menu .submenu-toggle { /* For dropdown toggles in .mobile-nav */
     display: flex;
     align-items: center;
     padding: 0.75rem 0;
-    color: var(--dark, #333);
+    color: var(--dark);
     text-decoration: none;
     font-weight: 500;
-    background: none;
-    border: none;
-    width: 100%;
-    text-align: left;
-    cursor: pointer;
 }
-
 .mobile-nav-menu .menu-heading {
     font-weight: 600;
-    color: var(--primary, #007bff);
-    margin-top: 1.5rem;
+    color: var(--primary);
+    margin-top: 1rem;
 }
-
 .mobile-nav-menu a.active {
-    color: var(--primary, #007bff);
+    color: var(--primary);
     font-weight: 600;
 }
-
-.mobile-nav-menu li a i,
-.mobile-nav-menu .submenu-toggle i {
-    margin-right: 10px;
-}
-
-.submenu-toggle {
-    justify-content: space-between;
-}
-
-.submenu {
+.mobile-nav-menu .submenu { /* Submenu ul in .mobile-nav */
     list-style: none;
-    padding-left: 1.5rem;
+    padding-left: 1.5rem; /* Indent */
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease;
-    background-color: #f9f9f9;
+    transition: max-height var(--transition-normal);
+    background-color: #f9f9f9; /* Slightly different bg for submenu */
 }
-
-.submenu a {
+.mobile-nav-menu .submenu.open { /* Class added by JS to show submenu */
+    max-height: 500px; /* Or enough to show content */
+}
+.mobile-nav-menu .submenu a {
     padding: 0.5rem 0;
     font-size: 0.9rem;
+    font-weight: normal;
 }
-
 .mobile-nav-social {
     display: flex;
     justify-content: center;
     gap: 1rem;
     margin-top: 2rem;
-    padding: 1rem 0;
-    border-top: 1px solid #eee;
+    padding-top: 1rem;
+    border-top: 1px solid var(--light);
 }
-
 .mobile-nav-social a {
-    color: var(--primary, #007bff);
+    color: var(--primary);
     font-size: 1.2rem;
 }
-
-.overlay {
+.overlay { /* For dimming background when .mobile-nav is open */
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(0,0,0,0.5);
-    z-index: 1000;
-    display: none;
+    z-index: 1000; /* Below .mobile-nav */
+    display: none; /* Toggled by JS */
 }
-
-/* ========================
-   RESPONSIVE DESIGN (General, comprehensive block)
-======================== */
-@media (max-width: 1200px) {
-    .hero h1 {
-        font-size: 2.5rem;
-    }
-}
-
-@media (max-width: 992px) { /* Note: New header styles use 991.98px, this is a general rule */
-    .nav-links { /* This is for the older .nav-links structure */
-        display: none;
-    }
-
-    .mobile-menu-btn {
-        display: block;
-    }
-
-    .grid-3, .grid-4 {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .tab-grid,
-    .research-meta,
-    .research-content,
-    .contact-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 768px) {
-    .hero h1 {
-        font-size: 2rem;
-    }
-
-    .hero-buttons {
-        flex-direction: column;
-    }
-
-    .programs-grid,
-    .news-grid,
-    .events-grid {
-        grid-template-columns: 1fr;
-    }
-
-    /* Older responsive nav-links, may conflict or complement new navbar-collapse styles */
-    .nav-links {
-        display: none;
-        flex-direction: column;
-        background: var(--white);
-        position: absolute;
-        top: 100%;
-        right: 0;
-        width: 250px;
-        box-shadow: var(--shadow-md);
-        padding: var(--space-md);
-    }
-
-    .nav-links.active {
-        display: flex;
-    }
-
-    .mobile-menu-btn { /* Already defined earlier */
-        display: block;
-    }
-
-    .footer-grid {
-        grid-template-columns: 1fr;
-        gap: var(--space-lg);
-    }
-
-    .footer-col {
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        padding-bottom: var(--space-lg);
-    }
-
-    .footer-col:last-child {
-        border-bottom: none;
-    }
-}
-
-@media (max-width: 576px) {
-    h1 {
-        font-size: 2rem;
-    }
-
-    h2 {
-        font-size: 1.75rem;
-    }
-
-    .section {
-        padding: var(--space-lg) 0;
-    }
-
-    .grid-2, .grid-3, .grid-4 {
-        grid-template-columns: 1fr;
-    }
-
-    .footer-grid { /* Already defined for 768px, this is more specific */
-        grid-template-columns: 1fr;
-        gap: var(--space-md);
-    }
+.overlay.show {
+    display: block;
 }
 
 
 /* ========================
-   END OF PAGE SPECIFIC STYLES
+   GENERAL RESPONSIVE DESIGN (From MAIN)
 ======================== */
+@media (max-width: 1200px) { /* xl */
+    .hero h1 { font-size: 2.5rem; }
+    /* Adjust .container max-width if needed for xl */
+}
+
+@media (max-width: 991.98px) { /* lg - Navbar collapse point, handled by navbar styles */
+    .grid-3, .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    /* Other lg specific layout changes */
+    .faculty-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+}
+
+@media (max-width: 767.98px) { /* md */
+    .hero h1 { font-size: 2.25rem; }
+    .hero-buttons { flex-direction: column; }
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } /* All grids stack */
+    .footer-grid { grid-template-columns: 1fr; gap: var(--space-lg); }
+    .footer-col { border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: var(--space-lg); }
+    .footer-col:last-child { border-bottom: none; }
+    .top-contact-bar .container, .announcement-bar .container {
+        flex-direction: column;
+        text-align: center;
+        gap: var(--space-xs);
+    }
+    .top-contact-bar .quick-links, .announcement-bar .quick-links {
+        margin-top: var(--space-xs);
+    }
+}
+
+@media (max-width: 575.98px) { /* sm */
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.75rem; }
+    .section { padding: var(--space-lg) 0; }
+    .btn-large { padding: var(--space-xs) var(--space-md); font-size: 1rem; }
+    .hero h1 { font-size: 2rem; }
+    .page-header { padding: var(--space-lg) 0; }
+    .page-header h1 { font-size: 1.75rem;}
+}
+
 /* ========================
    END OF STYLESHEET
 ======================== */
