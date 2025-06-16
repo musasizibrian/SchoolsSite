@@ -238,96 +238,101 @@ textarea.form-control {
     min-height: 150px;
     resize: vertical;
 }
-
+/* --- START: Simplified & Improved Navbar CSS (Bootstrap Enhanced) --- */
 /* =============================================
-   ENHANCED NAVIGATION SYSTEM STYLES
+   ENHANCED NAVIGATION STYLES - REVISED
+   Version: 6.1 (Bootstrap 5 Compatible & Image-Matched)
 ============================================= */
-/* Base Navbar Styles from NAV SYSTEM */
-.navbar { /* This is the primary .navbar definition now */
-  background-color: var(--nav-bg); /* Uses nav variable, which defaults to --primary */
-  padding: 0.5rem 0; /* from NAV */
-  position: relative; /* from NAV, could be sticky from main-header class */
-  z-index: 1030; /* Higher z-index, from MAIN .main-header */
-  transition: all var(--nav-transition); /* From NAV & MAIN */
+
+/* Navigation Variables (can be overridden by your main :root if names match) */
+:root {
+  --nav-primary-color: #003366; /* Default dark blue for other primary elements */
+  --nav-secondary-color: #FFD700; /* Default gold for accents */
+  --nav-white-color: #ffffff;
+  --nav-dark-text-color: #212529; /* For text on light backgrounds */
+  --nav-light-grey-bg: #f8f9fa;  /* For light hover backgrounds */
+
+  /* Specific Navbar Colors to match image */
+  --navbar-background: #0D6EFD; /* Bright blue for the navbar (like Bootstrap's default primary) */
+  --navbar-text-color: var(--nav-white-color);
+  --navbar-link-hover-color: var(--nav-secondary-color); /* Yellow for link hover/active underline */
+  --navbar-brand-text-color: var(--nav-white-color);
+
+  /* Dropdown colors */
+  --dropdown-bg-color: var(--nav-white-color);
+  --dropdown-text-color: var(--nav-dark-text-color);
+  --dropdown-item-hover-bg: var(--nav-light-grey-bg);
+  --dropdown-item-hover-text: var(--navbar-background); /* Bright blue text on light hover */
+
+  /* Shadows & Radius (can use global or define nav-specific) */
+  --nav-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --nav-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
+  --nav-radius-sm: 0.25rem; /* Bootstrap's default is often 0.375rem for .25rem padding */
 }
 
-/* Sticky header effect (can be applied via JS adding a class like 'scrolled') */
-.navbar.sticky-top { /* If Bootstrap's sticky-top is used on .navbar directly */
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
+/* Basic Navbar Aesthetics */
+.navbar { /* Targets <nav class="navbar navbar-expand-lg navbar-dark"> */
+  background-color: var(--navbar-background); /* Bright blue from image */
+  padding: 0.5rem 1rem; /* Adjust overall navbar padding as needed */
+  position: relative; /* Needed if not using sticky-top on this element directly */
+  z-index: 1030;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; /* Keep your font choice */
 }
-.navbar.scrolled { /* Custom class for scrolled state */
-  background-color: var(--nav-bg); /* Or a slightly different color if desired */
-  box-shadow: var(--shadow-md);
-}
-
-
-/* Specific container for navbar, if different from general .container */
-/* Using general .container for consistency, NAV SYSTEM's .navbar-container properties can be merged if needed */
-.navbar .container { /* Ensuring navbar uses the general .container properties */
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  /* padding: 0 15px; -> from general .container via --space-md */
-  /* max-width: 1200px; -> from general .container */
-  /* margin: 0 auto; -> from general .container */
+/* If the <header class="main-header sticky-top"> wraps the <nav>, then .main-header.scrolled would be better */
+.navbar.scrolled { /* Add this class with JS on scroll */
+  box-shadow: var(--nav-shadow-md);
+  /* Optionally, make the background slightly opaque or a different shade on scroll */
+  /* background-color: rgba(13, 109, 253, 0.95); */
 }
 
-
-/* Brand/Logo */
-.navbar-brand { /* From NAV SYSTEM, but MAIN's ideas can be merged */
-  display: flex;
-  align-items: center;
-  color: var(--nav-text);
-  font-weight: 600;
-  text-decoration: none;
-  padding: 0.5rem 0; /* From NAV */
-  transition: transform var(--transition-normal); /* From MAIN */
+/* Navbar Brand (Logo & Text) */
+.navbar-brand { /* Targets <a class="navbar-brand d-flex align-items-center"> */
+  color: var(--navbar-brand-text-color);
+  /* d-flex and align-items-center from HTML handle basic alignment */
+  padding-top: 0.25rem; /* Fine-tune vertical padding if needed */
+  padding-bottom: 0.25rem;
+  transition: transform 0.3s ease; /* For hover effect */
 }
-
 .navbar-brand:hover {
-    transform: scale(1.02); /* From MAIN */
+  transform: scale(1.02);
 }
-
-.navbar-brand img { /* .logo class from MAIN can be used if img has it */
+.navbar-brand img.logo { /* Targets <img class="logo"> */
   height: 50px;
-  margin-right: 10px; /* From NAV */
+  margin-right: 0.75rem; /* Spacing between logo and text block */
 }
-/* .navbar-brand small from MAIN for tagline styling if needed */
-.navbar-brand .brand-text small { /* From MAIN's .brand-text small */
-    font-size: 0.8rem;
-    color: var(--nav-text); /* Ensure it's visible on nav-bg */
-    opacity: 0.8;
+.navbar-brand .brand-text { /* Targets <div class="brand-text"> */
+  line-height: 1.3; /* Adjust for visual balance */
+  color: var(--navbar-brand-text-color);
 }
-
-/* Mobile Toggle Button */
-.navbar-toggler {
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: var(--radius-sm); /* Using variable */
-  padding: 0.75rem;
-  cursor: pointer;
-  display: none; /* Initially hidden, shown in media query */
-  position: relative;
-  z-index: 1001; /* Above dropdowns if they overlap */
-  transition: transform var(--transition-normal); /* From MAIN */
+.navbar-brand .brand-text .fw-bold { /* Targets <div class="fw-bold"> */
+  font-size: 1.1rem; /* Or desired size */
+  display: block;
+  color: var(--navbar-brand-text-color);
 }
-/* From MAIN - active state rotation for toggler */
-.navbar-toggler[aria-expanded="true"] {
-    transform: rotate(90deg);
+.navbar-brand .brand-text small { /* Targets <small> */
+  font-size: 0.75rem; /* Or desired size */
+  opacity: 0.9;
+  display: block;
+  color: var(--navbar-brand-text-color);
 }
 
-.navbar-toggler-icon { /* Custom icon from NAV SYSTEM */
+/* Navbar Toggler (Hamburger Icon) */
+.navbar-toggler { /* Targets <button class="navbar-toggler"> */
+  border-color: rgba(255, 255, 255, 0.2); /* Slightly more visible border for toggler */
+  transition: transform 0.3s ease; /* For JS-driven active state */
+  /* Bootstrap handles display based on navbar-expand-* */
+}
+/* Bootstrap's .navbar-dark provides default styling for the SVG icon */
+/* If you use a custom icon (like the 3-bar span version), uncomment and adapt:
+.navbar-toggler-icon {
   display: block;
   width: 22px;
   height: 2px;
-  background: var(--nav-text);
+  background: var(--navbar-text-color);
   position: relative;
-  transition: var(--nav-transition);
+  transition: all 0.3s ease;
 }
-
 .navbar-toggler-icon::before,
 .navbar-toggler-icon::after {
   content: '';
@@ -336,238 +341,232 @@ textarea.form-control {
   height: 100%;
   background: inherit;
   left: 0;
-  transition: var(--nav-transition);
+  transition: all 0.3s ease;
 }
-
 .navbar-toggler-icon::before { top: -6px; }
 .navbar-toggler-icon::after { bottom: -6px; }
 
-/* Active Toggle State from NAV SYSTEM for custom icon */
 .navbar-toggler.active .navbar-toggler-icon { background: transparent; }
 .navbar-toggler.active .navbar-toggler-icon::before { transform: translateY(6px) rotate(45deg); }
 .navbar-toggler.active .navbar-toggler-icon::after { transform: translateY(-6px) rotate(-45deg); }
+*/
 
-
-/* Navigation Menu */
-.navbar-nav { /* From NAV SYSTEM */
-  display: flex;
-  flex-direction: row; /* Horizontal on desktop */
-  list-style: none; /* Explicitly none */
-  margin: 0;
-  padding: 0;
-}
-
-.nav-item {
-  position: relative; /* For dropdown positioning */
-}
-
-.nav-link { /* Combined from NAV SYSTEM and MAIN's "FINAL IMPROVED" */
-  color: var(--nav-text);
-  padding: 0.75rem 1rem; /* From NAV, can be adjusted */
-  display: flex;
-  align-items: center;
+/* Navigation Links */
+.navbar-nav .nav-link { /* Targets <a class="nav-link"> */
+  color: rgba(255, 255, 255, 0.8); /* Slightly less than pure white for default */
+  padding: 0.6rem 1rem; /* Adjust padding for desired spacing and underline position */
+  position: relative;
   font-weight: 500;
-  transition: var(--nav-transition);
-  position: relative; /* For underline effect from MAIN */
+  transition: color 0.3s ease;
+}
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active { /* .active class set by Flask/Jinja based on route */
+  color: var(--navbar-text-color) !important; /* Pure white on hover/active */
+}
+/* Accessibility focus state */
+.navbar-nav .nav-link:focus,
+.dropdown-item:focus {
+  outline: 2px dashed var(--navbar-link-hover-color); /* Use distinct focus color */
+  outline-offset: 2px; /* Adjust offset */
 }
 
-.nav-link:hover,
-.nav-link.active {
-  color: var(--nav-hover) !important; /* From NAV, important to override BS */
-}
-
-/* Underline effect from MAIN's "FINAL IMPROVED" */
-.navbar-nav .nav-link:not(.dropdown-toggle)::after {
+/* Underline Effect for Desktop Nav Links */
+@media (min-width: 992px) { /* lg breakpoint and up */
+  .navbar-nav .nav-link:not(.dropdown-toggle)::after {
     content: '';
     position: absolute;
-    bottom: 0; /* Adjust if padding changes, e.g., bottom: 0.25rem; */
-    left: 1rem;
-    right: 1rem;
+    bottom: 0.25rem; /* Adjust to position underline relative to link padding */
+    left: 1rem;    /* Match nav-link horizontal padding */
+    right: 1rem;   /* Match nav-link horizontal padding */
     height: 2px;
-    background-color: var(--nav-hover); /* Use nav-hover color for underline */
+    background-color: var(--navbar-link-hover-color); /* Yellow underline */
     transform: scaleX(0);
-    transition: transform var(--transition-normal);
-}
-.navbar-nav .nav-link:hover:not(.dropdown-toggle)::after,
-.navbar-nav .nav-link.active:not(.dropdown-toggle)::after {
+    transition: transform 0.3s ease;
+  }
+  .navbar-nav .nav-link.active:not(.dropdown-toggle)::after,
+  .navbar-nav .nav-link:hover:not(.dropdown-toggle)::after {
     transform: scaleX(1);
+  }
 }
 
-
-/* Dropdown Indicators */
-.dropdown-toggle::after { /* From NAV SYSTEM */
-  content: '\25BE'; /* Down arrow */
-  margin-left: 5px;
-  font-size: 0.8em;
-  transition: transform var(--transition-normal);
+/* Dropdowns (Desktop & Mobile - Bootstrap handles .show toggle) */
+.dropdown-menu { /* Targets <ul class="dropdown-menu"> */
+  background-color: var(--dropdown-bg-color);
+  box-shadow: var(--nav-shadow-md);
+  border: none; /* Remove Bootstrap's default border */
+  border-radius: var(--nav-radius-sm);
+  /* Bootstrap's JS will toggle display: block/none via .show class */
+  /* Removed opacity/transform for initial state, relying on Bootstrap's .show */
+  /* transition: all 0.3s ease; /* Bootstrap adds its own transition */
 }
-.dropdown-toggle.active::after { /* JS might add .active to toggle */
-  transform: rotate(180deg);
+.dropdown-item { /* Targets <a class="dropdown-item"> */
+  color: var(--dropdown-text-color);
+  padding: 0.5rem 1.5rem; /* Standard Bootstrap padding */
+  font-weight: 500; /* Match nav-link weight */
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
-
-/* Dropdown Menus */
-.dropdown-menu { /* From NAV SYSTEM, with MAIN's shadow */
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background: var(--dropdown-bg);
-  min-width: 220px;
-  box-shadow: var(--shadow-md); /* Using shadow variable */
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity var(--transition-fast), visibility var(--transition-fast); /* Faster transition for dropdowns */
-  z-index: 1001;
-  border-radius: var(--radius-sm); /* Using variable */
-  padding: 0.5rem 0; /* From NAV */
-  border: none; /* From MAIN */
-}
-
-/* Multi-level Dropdown Support */
-.dropdown-menu .nav-item:hover > .dropdown-menu { /* Targeting nested dropdown */
-    top: 0; /* Align with parent item */
-    left: 100%; /* Position to the right */
-    margin-top: -0.5rem; /* Adjust to align better with parent item's padding */
-    margin-left: 0.1rem; /* Small gap */
-}
-/* Ensure sub-sub-menus also work */
-.dropdown-menu .dropdown-menu .nav-item:hover > .dropdown-menu {
-    /* Same as above, or adjust if needed for deeper levels */
-    top: 0;
-    left: 100%;
-    margin-top: -0.5rem;
-    margin-left: 0.1rem;
-}
-
-
-.dropdown-item { /* From NAV SYSTEM, with MAIN's hover */
-  color: var(--dropdown-text);
-  padding: 0.5rem 1.5rem; /* From MAIN */
-  display: flex;
-  align-items: center;
-  justify-content: space-between; /* For potential sub-menu indicators */
-  transition: background-color var(--transition-fast), color var(--transition-fast);
-  font-weight: 500; /* From MAIN */
-}
-
 .dropdown-item:hover {
-  background: var(--dropdown-hover-bg); /* Uses variable */
-  color: var(--dropdown-hover-text); /* Uses variable */
+  background-color: var(--dropdown-item-hover-bg);
+  color: var(--dropdown-item-hover-text);
 }
 
-/* Show Dropdown on Hover/Focus */
-.nav-item:hover > .dropdown-menu, /* Show first level */
-.nav-item.dropdown .nav-item:hover > .dropdown-menu { /* Show nested levels */
-  opacity: 1;
-  visibility: visible;
+/* Multi-Level Dropdown Styling (Desktop Hover) */
+@media (min-width: 992px) {
+  .dropdown-menu .dropdown-menu { /* A sub-dropdown */
+    top: -1px; /* Align top edges, adjust if border present */
+    left: 100%;
+    margin-left: 0.1rem; /* Small gap */
+  }
+  /* Show sub-dropdown on hover of its parent list item that contains a dropdown */
+  .dropdown-menu > .nav-item.dropdown:hover > .dropdown-menu {
+    display: block; /* Overrides Bootstrap's click-only for sub-menus on desktop hover */
+    /* opacity/visibility handled by Bootstrap or not needed if display:block is used */
+  }
 }
-/* Accessibility: Show on focus for keyboard navigation */
-.nav-link:focus + .dropdown-menu,
-.dropdown-item:focus + .dropdown-menu, /* May need JS to handle focus on parent for sub-menus */
-.nav-item:focus-within > .dropdown-menu {
-  opacity: 1;
-  visibility: visible;
+
+/* Search Bar Styling (Desktop - from image) */
+@media (min-width: 992px) {
+    .navbar .search-form input[type="search"].form-control-sm { /* Targets form in header.html */
+        background-color: var(--nav-white-color);
+        color: var(--nav-dark-text-color);
+        border: 1px solid var(--nav-white-color); /* White border or light grey */
+        border-radius: var(--nav-radius-sm);
+        max-width: 180px; /* Adjust width */
+    }
+    .navbar .search-form input[type="search"].form-control-sm::placeholder {
+        color: #6c757d;
+    }
+    .navbar .search-form button.btn-sm.btn-outline-light {
+        color: var(--navbar-background); /* Bright blue icon */
+        border-color: var(--nav-white-color);
+        background-color: var(--nav-white-color); /* White button background */
+    }
+    .navbar .search-form button.btn-sm.btn-outline-light:hover {
+        background-color: var(--nav-light-grey-bg);
+        color: var(--navbar-background);
+        border-color: var(--nav-light-grey-bg);
+    }
 }
 
 
-/* Mobile Styles for NAV SYSTEM */
-@media (max-width: 991.98px) {
-  .navbar-toggler {
-    display: block; /* Show toggler */
+/* ========================
+   MOBILE NAVIGATION STYLES
+======================== */
+@media (max-width: 991.98px) { /* Below lg breakpoint */
+  /* Styling for the main .navbar-collapse when it's shown on mobile */
+  .navbar-collapse.show { /* Bootstrap adds .show class */
+    background-color: var(--navbar-background); /* Same bright blue as desktop navbar */
+    padding: 0.5rem 0; /* Vertical padding for the opened menu */
+    /* position: absolute; /* Optional: if you want it to overlay content */
+    /* top: 100%;      /* Optional: position below the navbar bar */
+    /* left: 0; */
+    /* width: 100%; */
+    box-shadow: var(--nav-shadow-sm); /* Softer shadow for mobile */
   }
 
-  .navbar-nav { /* Collapsed menu styles */
-    flex-direction: column;
+  .navbar-nav {
+    /* flex-direction: column; /* Bootstrap handles this for .navbar-collapse */
+  }
+
+  .navbar-nav .nav-link {
+    padding: 0.75rem 1.5rem; /* Comfortable tap targets */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Separator lines */
+    color: rgba(255, 255, 255, 0.85); /* Consistent link color */
+  }
+  .navbar-nav .nav-link:hover,
+  .navbar-nav .nav-link.active {
+      color: var(--nav-white-color) !important;
+      background-color: rgba(255,255,255,0.1); /* Slight highlight on hover/active */
+  }
+  .navbar-nav .nav-item:last-child .nav-link {
+    border-bottom: none; /* No border on the last item */
+  }
+
+  /* Mobile Dropdowns (Accordion Style - JS toggles .show on .dropdown-menu) */
+  .navbar-nav .dropdown-menu {
+    position: static; /* Remove absolute positioning from desktop */
     width: 100%;
-    max-height: 0;
-    overflow-y: auto; /* Allow scrolling if content exceeds viewport */
-    transition: max-height 0.35s ease-out; /* NAV SYSTEM's transition */
-    position: absolute;
-    top: 100%; /* Position below the navbar */
-    left: 0;
-    background: var(--nav-bg); /* Same as navbar */
-    box-shadow: var(--shadow-sm); /* Softer shadow for mobile */
-    /* padding: 1rem 0; -> Applied when .show */
-  }
-
-  .navbar-nav.show { /* When toggled open by JS */
-    max-height: calc(100vh - 70px); /* Example: full height minus navbar height */
-    padding: 1rem 0;
-  }
-
-  .nav-item {
-    width: 100%;
-  }
-  .navbar-nav .nav-link:not(.dropdown-toggle)::after {
-      display: none; /* Hide underline in mobile collapsed menu */
-  }
-
-  /* Mobile Dropdown Menu Styling */
-  .dropdown-menu { /* Overrides desktop absolute positioning */
-    position: static; /* Flow naturally in the column */
+    background-color: rgba(0, 0, 0, 0.1); /* Darker tint for sub-menus */
+    border: none;
     box-shadow: none;
-    background: rgba(0,0,0,0.1); /* Slightly darker bg for nested items */
-    width: 100%;
-    opacity: 1; /* Always visible if parent is shown */
-    visibility: visible;
-    padding-left: 1rem; /* Indent mobile dropdown items */
-    display: none; /* Initially hidden, toggled by JS */
-    border-radius: 0; /* No radius within the column */
+    padding-left: 1.5rem; /* Indent sub-items */
+    display: none; /* Hidden by default, JS toggles .show */
+    border-radius: 0;
+    margin-top: 0; /* Reset desktop margin */
   }
-
-  .dropdown-menu.show { /* When toggled open by JS */
+  .navbar-nav .dropdown-menu.show { /* When JS adds .show */
     display: block;
   }
-
   /* Nested dropdowns in mobile */
-  .dropdown-menu .dropdown-menu {
+  .navbar-nav .dropdown-menu .dropdown-menu {
     padding-left: 1rem; /* Further indent sub-sub-menus */
-    background: rgba(0,0,0,0.15); /* Even slightly darker */
-  }
-   .dropdown-menu .nav-item:hover > .dropdown-menu { /* Reset desktop positioning for mobile */
-    top: auto;
-    left: auto;
-    margin-top: 0;
-    margin-left: 0;
+    background: rgba(0,0,0,0.2); /* Even darker for deeper levels */
   }
 
-
-  .dropdown-item {
-    color: var(--nav-text); /* White text for mobile dropdown items */
-    padding: 0.75rem 1.5rem;
+  .navbar-nav .dropdown-item {
+    color: var(--navbar-text-color); /* White text for mobile dropdown items */
+    padding: 0.75rem 1.5rem; /* Consistent padding */
   }
-  .dropdown-item:hover {
-    background: var(--nav-hover); /* Use nav hover color */
-    color: var(--nav-bg); /* Dark text on hover */
+  .navbar-nav .dropdown-item:hover {
+    background-color: var(--navbar-link-hover-color); /* Yellow hover */
+    color: var(--navbar-background); /* Bright blue text on yellow hover */
   }
 
-  /* Mobile dropdown toggle indicator */
-  .dropdown-toggle::after { /* From NAV SYSTEM */
-    transform: rotate(-90deg); /* Point right for closed state */
-    position: absolute; /* Better control for positioning */
+  /* Mobile Dropdown Toggle Indicator (Arrow) */
+  .navbar-nav .dropdown-toggle::after {
+    transition: transform 0.3s ease;
+    transform: rotate(-90deg); /* Pointing right by default (closed) */
+    position: absolute;
     right: 1.5rem;
     top: 50%;
-    margin-top: -0.4em; /* Vertically center */
+    margin-top: -0.4em; /* Adjust for vertical centering */
   }
-  .dropdown-toggle.active::after { /* When dropdown is open */
-    transform: rotate(0deg); /* Point down */
-  }
-
-  /* Search form in mobile */
-  .navbar .search-form { /* Assuming .search-form class is used */
-      margin: 1rem 15px; /* Add to collapsed menu */
-      width: auto; /* Override desktop width */
-  }
-  .navbar .search-form input,
-  .navbar .search-form button {
-      width: auto; /* Let them size within flex */
-      flex-grow: 1;
-  }
-  .navbar .search-form input {
-      margin-right: 0.5rem;
+  .navbar-nav .dropdown-toggle.active::after { /* JS adds .active to the toggle */
+    transform: rotate(0deg); /* Pointing down when open */
   }
 
+  /* Search form inside collapsed mobile menu */
+  /* This assumes the "Desktop Search" form is the one you want to show in mobile */
+  .navbar-collapse.show .search-form.d-none.d-lg-flex { /* Targets the desktop search form */
+    display: flex !important; /* Override d-none to show it in mobile */
+    margin: 1rem 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Separator */
+  }
+  .navbar-collapse.show .search-form input[type="search"].form-control-sm {
+      flex-grow: 1; /* Allow input to take available space */
+      background-color: rgba(255,255,255,0.9);
+      color: var(--nav-dark-text-color);
+      border-color: rgba(255,255,255,0.5);
+      max-width: none; /* Remove desktop max-width */
+  }
+  .navbar-collapse.show .search-form input[type="search"].form-control-sm::placeholder {
+      color: #495057;
+  }
+  .navbar-collapse.show .search-form button.btn-sm {
+      color: var(--navbar-background);
+      background-color: var(--nav-white-color);
+      border-color: var(--nav-white-color);
+  }
 
+  @media (min-width: 992px) {
+  .navbar .dropdown:hover > .dropdown-menu {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .navbar .dropdown-menu {
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+  }
 }
+
+}/* --- END: Simplified & Improved Navbar CSS --- */
 
 /* ========================
    OTHER LAYOUT COMPONENTS (From MAIN)
